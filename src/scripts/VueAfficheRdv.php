@@ -26,6 +26,7 @@ methods: {
                 if (j><?=$iDeb?>+1)break;
             }
             <?php unset($iDeb);?>
+            
             this.listeRdv=test;
     }
 },
@@ -36,6 +37,7 @@ beforeMount(){
                         }else{
                             echo "''";
                         }?>,
+        console.log(this.requete)
         this.hydrateListeRdv();
     },
 });

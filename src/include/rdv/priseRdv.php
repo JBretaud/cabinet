@@ -64,13 +64,12 @@
                 
                 
                 foreach($listeCreneauxReserves as $creneauReserve){
-                    if ((clone $creneau)->modify("+20 minutes")>$creneauReserve['debut'] && (clone $creneau)->modify("+20 minutes")<=$creneauReserve['fin']){
+                    if ((clone $creneau)->modify("+20 minutes")>=$creneauReserve['debut'] && (clone $creneau)->modify("+20 minutes")<=$creneauReserve['fin']){
                         $creneau=$creneauReserve['fin'];
                     }
-                    
                 }
                 $end = (clone $creneau)->modify("+20 minutes")->format('H');
-                
+                var_dump($creneau);
                 if(($creneau->format('H')<12||$creneau->format('H')>=13)&&($end<=12||($end>=13&&$end<=19))){
                     if(!$day->pastHour((clone $creneau))){
                         
