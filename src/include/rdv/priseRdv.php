@@ -68,9 +68,12 @@
                         $creneau=$creneauReserve['fin'];
                     }
                 }
-                $end = (clone $creneau)->modify("+20 minutes")->format('H');
-                var_dump($creneau);
-                if(($creneau->format('H')<12||$creneau->format('H')>=13)&&($end<=12||($end>=13&&$end<=19))){
+                $end = [
+                    'H'=>(clone $creneau)->modify("+20 minutes")->format('H'),
+                    'i'=>(clone $creneau)->modify("+20 minutes")->format('i'),
+                ];
+                
+                if(($creneau->format('H')<12||$creneau->format('H')>=13)&&($end<=12||($end>=13&&($end['H']<19||($end['H']===19)&&$end['i']===0)))){
                     if(!$day->pastHour((clone $creneau))){
                         
                         array_push($listeCreneaux,(clone $creneau)->format('Y-m-d H:i'));

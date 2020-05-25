@@ -173,20 +173,59 @@ h1{
     width:100%;
     height:calc(100vh - 147.2px);
 }
-.calendar__table td{
-    padding: 10px;
-    border: 1px solid #CCC;
+.backgroundTop{
+    background-color: #fff;
+    height:25%;
+    padding-top:10px;
+    margin:0;
+    width:12%;
+}
+
+.calendar__othermonth .backgroundTop{
+    background-color: rgb(233, 233, 233);
+    z-index:1;
+}
+
+
+.calendar__table .tr{
+    height:20%;
+}
+.calendar__table--4weeks .tr{
+    height:25%;
+}
+.calendar__table .td{
+    position:relative;
     vertical-align:top;
     width:14.29%;
-    height:20%;
+    height:100%;
+
 }
 .calendar__table ul{
     margin:0;
+    margin-top:40px;
     padding:0;
+    padding-top:5px;
+    overflow-y:auto;
+    height:75%;
 }
-.calendar__table--6weeks td{
-    height:16.66%;
+.calendar__table--6weeks .td{
+    height:100%;
 }
+.calendar__table .row1{
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;
+}
+.calendar__table .rowx{
+    border-bottom:1px solid #CCC;
+}
+.calendar__table .col{
+    border-right:1px solid #CCC;
+}
+.calendar__table .col1{
+    border-right:1px solid #CCC;
+    border-left:1px solid #CCC;
+}
+
 .calendar__weekday{
     font-weight:bold;
     color:#000;
@@ -294,8 +333,6 @@ h1{
 .olcontainer{
     position:relative;
 }
-
-
 #authentification{
     position:absolute;
     font-family:'robotoregular' !important;

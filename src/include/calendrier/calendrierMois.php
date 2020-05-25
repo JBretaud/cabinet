@@ -33,8 +33,6 @@
                 $listeRDV=$rdvDAO->getSpan($start,$end,$personne);
                 
             }
-            
-
         ?>
         <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
             <h1><?= $month->toString();?></h1>
@@ -67,16 +65,19 @@
             </div>
         </div>
 
-        <table class="calendar__table calendar__table--<?= $month->getWeeks()+1 ?>weeks">
+        <div class=" d-flex flex-column calendar__table calendar__table--<?= $month->getWeeks()+1 ?>weeks">
             <?php for($i = 0; $i < $month->getWeeks()+1; $i++): ?>
-            <tr>
+            <div class="d-flex flex-row tr">
                 <?php foreach($month->days as $k => $day):
                    $date = (clone $start)->modify("+" . ($k + $i * 7) ." days"); 
                 ?>
-                <td <?= $month->withinMonth($date) ? '' :  'class= calendar__othermonth'?> >
-                <?php if ($i===0):?> <div class="calendar__weekday"><?= $day; ?></div> <?php endif;?>
-                    <div class="calendar__day"><?= $date->format('d') ?></div>
-                    <ul class="ListeRdv">
+                
+                <div class= "position-relative <?= $month->withinMonth($date) ? '' :  'calendar__othermonth';?> <?= ($i===0) ? ' row1 ':'rowx ';?><?=($day==="Lundi") ? ' col1 ' : ' col ';?> td d-flex flex-column" >
+                    <div class="backgroundTop position-absolute">
+                        <?php if ($i===0):?> <div class="calendar__weekday"><?= $day; ?></div> <?php endif;?>
+                        <div class="calendar__day"><?= $date->format('d') ?></div>
+                    </div>
+                    <ul class="ListeRdv w-100">
                         <?php if(!empty($listeRDV)):
                             foreach($listeRDV as $rdv):
                                 if($rdv->getDate()===$date->format('Y-m-d')):
@@ -104,10 +105,10 @@
                         endforeach;
                         endif;?>
                     </ul>
-                </td>
+                </div>
                 <?php endforeach; ?>
-            </tr>
+            </div>
         <?php endfor; ?>
-        </table>
+        </div>
         <?php $month->getWeeks();?>
         <script src="" async defer></script>
