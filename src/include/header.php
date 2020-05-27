@@ -58,8 +58,8 @@
         endif;?>
         <div v-if="show_auth" v-cloak id="authentification">
             <form class="d-inline-flex flex-column align-items-stretch" method="POST" action="/cabinet/login">
-                <input class="mt-5 m-2 p-2" type="text" name="login" required placeholder="Identifiant">
-                <input class="mb-4 m-2 p-2" type="password" name="pass" required placeholder="Mot de Passe">
+                <input class="mt-5 m-2 p-2 form-control" type="text" name="login" required placeholder="Identifiant">
+                <input class="mb-4 m-2 p-2 form-control" type="password" name="pass" required placeholder="Mot de Passe">
                 <div class="d-flex flex-row justify-content-between mb-2 p-2">
                     <a href="/cabinet/account/new" class="btn btn-secondary" @click="hideAuth">CREER UN COMPTE</a>
                     <button type="submit" class="btn btn-primary">LOG IN</button>
@@ -74,30 +74,31 @@
         <?php
             if(isset ($path[1]) && $path[1]==="errorLogin"):
         ?>
-        <div class="d-flex flex-row justify-content-center w-100">
-            <div class="alert alert-danger">
+        <div class="d-flex flex-row justify-content-center w-100 pop-up">
+            <div class="toast alert alert-danger w-50"  data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
                 ERREUR: Identifiant ou mot de passe non reconnus.
             </div>
         </div>
 
         <?php elseif(isset($_GET['alert'])):
             if($_GET['alert']==="deleteRdv"):?>
-            <div class="d-flex flex-row justify-content-center w-100">
-                <div class="alert alert-success">
-                    Le rendez-vous a bien été supprimé.
+            <div class="d-flex flex-row justify-content-center w-100 pop-up">
+                <div class="toast alert alert-success" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                    Le rendez-vous a bien été annulé.
                 </div>
             </div>
             <?php elseif($_GET['alert']==="updateRdv"):?>
-                <div class="d-flex flex-row justify-content-center w-100">
-                    <div class="alert alert-success">
-                        Le rendez-vous a bien été mis à jour.
+                
+                <div class="d-flex flex-row justify-content-center w-100 pop-up">
+                    <div class="toast alert alert-success" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                            Le rendez-vous a bien été mis à jour.
                     </div>
                 </div>
             <?php elseif($_GET['alert']==="deleteRdvFail"):?>
-                <div class="d-flex flex-row justify-content-center w-100">
-                <div class="alert alert-danger">
-                    Une erreur est survenue lors de la suppression du rendez-vous. Veuillez réessayer.
-                </div>
+                <div class="d-flex flex-row justify-content-center w-100 pop-up">
+                    <div class="toast alert alert-danger" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Une erreur est survenue lors de la suppression du rendez-vous. Veuillez réessayer.
+                    </div>
                 </div>
 
             <?php endif;?>

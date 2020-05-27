@@ -103,23 +103,23 @@
     
 ?>
 <div  class="w-100 d-flex flex-column align-items-center">
-    <div class="d-flex flex-row align-items-center justify-content-between w-50">
-        <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->previousDay()->getMonth()?>&year=<?= $day->previousDay()->getYear(); ?>&day=<?= $day->previousDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/left vert.png"></a>
-        <h1><?=$day->toString()?></h1>
-        <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->nextDay()->getMonth()?>&year=<?= $day->nextDay()->getYear(); ?>&day=<?= $day->nextDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/right vert.png"></a>
-    </div>
-    <form class="mt-4 w-100 d-flex flex-row justify-content-center " action="#" method="post">
-        
-            <label class="my-auto mr-2" for="idPraticien">Praticien : </label>
-            <select onchange="this.form.submit()" name="idPraticien">
+    <form class="my-4 d-flex flex-column justify-content-center align-items-center col-xl-3 col-lg-4 col-md-6 col-sm-8"  action="#" method="post">
+            <label class="my-2" for="idPraticien"><h2>Praticien :</h2></label>
+            <select class="form-control" onchange="this.form.submit()" name="idPraticien">
                 <option value="---">---</option>
                 <?php foreach($ListePraticiens as $Praticien): ?>
                 <option value="<?= $Praticien->getIdPraticien() ?>" <?php if(isset($_POST['idPraticien'])||isset($_GET['idPraticien'])){if((isset($_POST['idPraticien']) && $Praticien->getIdPraticien()==$_POST['idPraticien'])||(isset($_GET['idPraticien']) && $Praticien->getIdPraticien()==$_GET['idPraticien'])){ echo "selected";}}elseif($idPraticien==$Praticien->getIdPraticien()){ echo "selected";}?>><?="Dr. ".$Praticien->getPrenom().' '.$Praticien->getNom()?></option>
                 <?php endforeach;?>
             </select>
     </form>
+    <div class="d-flex flex-row align-items-center justify-content-between col-xl-6 col-lg-7 col-md-10 col-sm-12">
+        <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->previousDay()->getMonth()?>&year=<?= $day->previousDay()->getYear(); ?>&day=<?= $day->previousDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/left vert.png"></a>
+        <h1><?=$day->toString()?></h1>
+        <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->nextDay()->getMonth()?>&year=<?= $day->nextDay()->getYear(); ?>&day=<?= $day->nextDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/right vert.png"></a>
+    </div>
+    
     <?php if(isset($idPraticien)): ?>
-    <ul class="dispRdv d-flex flex-row justify-content-center align-items-center flex-nowrap">
+    <ul class="dispRdv d-flex flex-row justify-content-center align-items-center flex-nowrap col-xl-6 col-lg-8 col-md-10 col-sm-11">
         <div class="m-4" style="width:10%">
         <?php if (!empty ($borneMoins)): ?>
             <a  href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->getMonth()?>&year=<?= $day->getYear(); ?>&day=<?= $day->getDay(); ?>&debut=<?=$borneMoins?>" class="BlueSideArrows justify-content-center d-flex flex-row align-items-center btn btn-primary"><img src="/cabinet/src/img/left bleu.png"></a>
@@ -130,8 +130,8 @@
             <?php if (!$day->pastDay()): ?>
             
             <a v-bind:href="<?= $adress.$_GET['idPatient'] ?>&creneau='+(creneau.getYear()+1900)+'-'+(creneau.getMonth()+1)+'-'+creneau.getDate()+'-'+creneau.getHours()+'-'+creneau.getMinutes()+'&idPraticien=<?=$idPraticien?>'" class="d-flex flex-column align-items-center justify-content-around">
-                <span class="heure" v-if="creneau.getMinutes()>=10">- {{creneau.getHours()}}:{{creneau.getUTCMinutes()}} -</span>
-                <span class="heure" v-if="creneau.getMinutes()<10">- {{creneau.getHours()}}:0{{creneau.getUTCMinutes()}} -</span>
+                <span class="heure" v-if="creneau.getMinutes()>=10"><b>- {{creneau.getHours()}}:{{creneau.getUTCMinutes()}} -</b></span>
+                <span class="heure" v-if="creneau.getMinutes()<10"><b>- {{creneau.getHours()}}:0{{creneau.getUTCMinutes()}} -</b></span>
                 <span> Prendre <br> Rendez-vous  </span>
             </a>
             <?php else: ?>

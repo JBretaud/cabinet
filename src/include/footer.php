@@ -61,6 +61,7 @@ methods: {
             }
         }
     }
+    if(isset($_GET['alert'])||(isset ($path[1]) && $path[1]==="errorLogin")) require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toasts.php';
 ?>
     </body>
 </html>
