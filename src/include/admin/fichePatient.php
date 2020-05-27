@@ -142,7 +142,7 @@
                         <h3>Ce patient ne bénéficie pas d'un suivi</h3>
                         <a v-if="!show_choixMed" @click.prevent="toggleChoixMed">- Déclarer un médecin référent -</a>
                         <div v-if="show_choixMed">
-                            <form action="/cabinet/admin/fiche/update" method='post'>
+                            <form action="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/fiche/update" method='post'>
                                 <select name="idPraticien">
                                     <?php foreach($ListePraticiens as $praticien):?>
                                     <option value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>
@@ -174,14 +174,14 @@
                     <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                         <h2 class="mb-2">Prochain Rendez-vous :</h2>
                         <p>Le <?=$prochainRdv->getDate()." à ".$heure."<br>avec Dr.". $praticienRdv?></p>
-                        <a href="/cabinet/admin/rdv/new?idPatient=<?=$idPatient?>">- Réserver un rendez-vous -</a>
+                        <a href="/cabinet/<?= ($path[0]==="praticient" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">- Réserver un rendez-vous -</a>
                     </div>
                     <?php else: ?>
                     <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                         <h2 >Prochain rendez-vous :</h2>
                         <h3>Pas de rendez-vous programmé</h3>
                         <div class="link-group">
-                            <a href="/cabinet/admin/rdv/new?idPatient=<?=$idPatient?>">Réserver un créneau</a>
+                            <a href="/cabinet/<?= ($path[0]==="praticient" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">Réserver un créneau</a>
                             <img src='/cabinet/src/img/highlight.png'>
                         </div>
                     </div>

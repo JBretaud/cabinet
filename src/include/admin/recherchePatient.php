@@ -24,7 +24,7 @@ $ListePatients=$patientDAO->getListe();
             <!-- Render a li element for every entry in the computed filteredArticles array. -->
                 
             <li v-for="patient in filteredPatients" class="my-2">
-                <a v-bind:href="'/cabinet/admin/fiche?idPatient='+ patient.idPatient" class="d-flex flex-column justify-content-around align-items-center">
+                <a v-bind:href="'/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin";?>/fiche?idPatient='+ patient.idPatient" class="d-flex flex-column justify-content-around align-items-center">
                     <p class="nom"><span>{{patient.nom}}</span> {{patient.prenom}}</p>
                     <p class="naissance mb-2">{{patient.dateNaissance}}</p>
                     <div class="px-2" style="text-align:center">

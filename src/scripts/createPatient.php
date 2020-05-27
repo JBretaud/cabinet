@@ -13,11 +13,11 @@
         $user->setIdPatient($idPatient);
         $userDAO->update($user);
     }else{
-        header('Location: /cabinet/account/new/error');
+        header('Location: /cabinet/accueil?alert=CompteCreaError');
         exit();
     }
     
     
-    header('Location: /cabinet/account/new/complete');
+    header('Location: /cabinet/accueil?alert=CompteCree');
     exit();
 ?>

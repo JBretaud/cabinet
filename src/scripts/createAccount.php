@@ -11,6 +11,6 @@ if(!empty($_POST['login'])){
     header('Location: /cabinet/account/new/etape2?idUtilisateur='.$user->getIdUtilisateur().'&email='.$user->getEmail());
     exit();
 }else{
-    header('Location: /cabinet/account/new/etape1/error');
+    header('Location: /cabinet/accueil?alert=CompteCreaError');
     exit();
 }

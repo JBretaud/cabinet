@@ -69,6 +69,18 @@ if(isset($path)){
         }else{
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
+    }elseif($path[0]==='praticien'&&$_SESSION['type']===2){
+        if ($path[1]==='recherche'&&$path[2]==='patient'){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'recherchePatient.php';
+        }elseif($path[1]==='fiche'){
+            if(isset($path[2])){
+                if($path[2]==='update'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+                }
+            }else{
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
+            }
+        }
     }elseif($path[0]==='patient'&&$_SESSION['type']===1){
         if ($path[1]==='rdv'){
             if ($path[2]==='new'){

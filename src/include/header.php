@@ -31,15 +31,15 @@
             <a href="/cabinet/accueil" class="navbar-brand home">&#8962;</a>
         <?php if(isset($_SESSION['login'])):?>
             <a <?php if($_SESSION['type']!=3){echo "href='/cabinet/patient/profil'";}else{echo "href='#'";} ?> id="loggedName" class ="navbar-brand"><?=strtoupper($_SESSION['login'])?></a>
-            <?php if($_SESSION['type']==3): ?>
-            <a href='/cabinet/admin/recherche/patient' class ="navbar-brand">Recherche Patient</a>
+            <?php if($_SESSION['type']==3||$_SESSION['type']==2): ?>
+            <a href='<?=($_SESSION['type']==3) ? "/cabinet/admin/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-brand">RECHERCHE PATIENT</a>
             <?php endif; ?>
             <?php if($_SESSION['type']==1): 
                 require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
                 ?>
-                <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-brand">Prendre RDV</a>
+                <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-brand">PRENDRE RDV</a>
             <?php endif; ?>
-            <a href="/cabinet/calendar/month" class ="navbar-brand">MON CALENDRIER</a>
+            <a href="/cabinet/calendar/month" class ="navbar-brand"><?= (isset($_SESSION['type'])&&$_SESSION['type']===1) ?  "MON CALENDRIER" : ($_SESSION['type']===2) ?  "MON AGENDA" :  "CALENDRIER" ;?></a>
         <?php endif; ?>
         
             </div>
@@ -98,6 +98,30 @@
                 <div class="d-flex flex-row justify-content-center w-100 pop-up">
                     <div class="toast alert alert-danger" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
                         Une erreur est survenue lors de la suppression du rendez-vous. Veuillez réessayer.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="CompteCree"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-success h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Votre compte a été créé.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="CompteCreaError"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-danger h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Une erreur est survenue lors de la création du compte.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="deconnexion"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-danger h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Vous avez été déconnecté.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="accountUpdated"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-success h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Information de compte mis à jours.
                     </div>
                 </div>
 

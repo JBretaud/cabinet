@@ -35,7 +35,7 @@ methods: {
             }else{
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'scriptVueEtape1.php';
             }
-        }elseif($path[0]=="admin"){
+        }elseif($path[0]=="admin"&&$_SESSION['type']===3||$path[0]=="praticien"&&$_SESSION['type']===2){
             if($path[1]=="recherche"&&$path[2]=="patient"){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueRecherche.php';
             }elseif($path[1]=="fiche"){

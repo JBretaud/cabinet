@@ -39,9 +39,11 @@ var recherche = new Vue({
             }
             searchNom = searchNom.trim().toLowerCase();
             searchPrenom = searchPrenom.trim().toLowerCase();
+            
             patients_array = patients_array.filter(function(item){
-                if(item.nom.toLowerCase().indexOf(searchNom) !== -1){
-                    if(item.prenom.toLowerCase().indexOf(searchPrenom) !== -1){
+                
+                if(item.nom!=null && item.nom.toLowerCase().indexOf(searchNom) !== -1){
+                    if(item.prenom!=null && item.prenom.toLowerCase().indexOf(searchPrenom) !== -1){
                         return item;
                     }
                 }

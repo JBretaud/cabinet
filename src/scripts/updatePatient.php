@@ -1,12 +1,14 @@
 <?php
     if($path[1]==='modify'){
-        $adress='Location: /cabinet/account/modify/complete';
+        $adress='Location: /cabinet/patient/profil?alert=accountUpdated';
     }elseif($path[1]==='new'){
-        $adress='Location: /cabinet/account/new/updated';
+        $adress='Location: /cabinet/accueil?alert=accountUpdated';
     }elseif($path[1]==='profil'&&$path[2]==='update'){
-        $adress='Location: /cabinet/patient/profil';
+        $adress='Location: /cabinet/patient/profil?alert=accountUpdated';
     }elseif($path[0]=='admin'&&$path[1]=='fiche'&&$path[2]=='update'){
-        $adress='Location: /cabinet/admin/fiche?idPatient='.$_POST['idPatient'];
+        $adress='Location: /cabinet/admin/fiche?idPatient='.$_POST['idPatient'].'&alert=accountUpdated';
+    }elseif($path[0]=='praticien'&&$path[1]=='fiche'&&$path[2]=='update'){
+        $adress='Location: /cabinet/praticien/fiche?idPatient='.$_POST['idPatient'].'&alert=accountUpdated';
     }
 
 
