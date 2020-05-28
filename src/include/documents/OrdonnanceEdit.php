@@ -29,7 +29,7 @@
         <form action="/cabinet/ordonnance/display?idPatient=<?= $_GET['idPatient']?>" class="border-0" method="post" target="myiframe" onchange="this.form.submit()">
             <input type="hidden" name="nomPatient" value="<?=$nom?>">
             <input type="hidden" name="prenomPatient" value="<?=$prenom?>">
-            <input type="hidden" name="DateNaissancePatient" value="<?=$dateNaissance?>">
+            <input type="hidden" name="dateNaissancePatient" value="<?=$dateNaissance?>">
             
             
         </form>
