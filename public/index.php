@@ -1,5 +1,8 @@
 <?php
-require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'header.php';
+
+
+    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'header.php';
+
 
 if(isset($path)){
     if ($path[0]=="account"){
@@ -80,6 +83,12 @@ if(isset($path)){
             }else{
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
             }
+        }elseif($path[1]==="ordonnance"){
+            if($path[2]==="new"){
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'OrdonnanceEdit.php';
+            }
+        }else{
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
     }elseif($path[0]==='patient'&&$_SESSION['type']===1){
         if ($path[1]==='rdv'){
@@ -132,6 +141,14 @@ if(isset($path)){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'calendrier'.DIRECTORY_SEPARATOR.'calendrierSemaine.php';
         }else{
             
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+        }
+    }elseif($path[0]==="ordonnance"){
+        if($path[1]==="display"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceToPdf.php';
+        }elseif($path[1]==="vide"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceVide.php';
+        }else{
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
     }else{

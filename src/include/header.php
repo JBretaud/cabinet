@@ -1,11 +1,12 @@
 <?php 
-    session_start();
-    include_once ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY_SEPARATOR."bdd.php");
-    if(!empty($_GET['path'])){
-        $path=explode("/",$_GET['path']);
-    }
-
+session_start();
+include_once ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY_SEPARATOR."bdd.php");
+if(!empty($_GET['path'])){
+    $path=explode("/",$_GET['path']);
+}
 ?>
+
+<?php if($path[0]!="ordonnance" || ($path[0]==="ordonnance" && $path[1]=="vide")):?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -22,10 +23,13 @@
         <link rel="stylesheet" href="/cabinet/public/css/rdv.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
     </head>
+<?php endif;
+if($path[0]!="ordonnance"):?>
     <body> 
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+    
         <nav class="navbar navbar-dark bg-primary mb-3">
             <div>
             <a href="/cabinet/accueil" class="navbar-brand home">&#8962;</a>
@@ -71,6 +75,7 @@
         </div>
         
         </nav>
+    
         <?php
             if(isset ($path[1]) && $path[1]==="errorLogin"):
         ?>
@@ -124,7 +129,7 @@
                         Information de compte mis à jours.
                     </div>
                 </div>
-
+                <?php endif;?>
             <?php endif;?>
         <?php endif;?>
         

@@ -61,8 +61,12 @@
 
         public function getNextRdv(?int $idPatient){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Rdv.php';
-            $query=$this->pdo->prepare('SELECT * FROM rdv WHERE idPatient=:idPatient ORDER BY start;');
-            $query->execute(['idPatient'=>$idPatient]);
+            $ajd=new DateTime();
+            $query=$this->pdo->prepare('SELECT * FROM rdv WHERE idPatient=:idPatient && start > :start ORDER BY start;');
+            $query->execute([
+                'idPatient'=>$idPatient,
+                'start'=> $ajd->format("Y-m-d H:i"),
+            ]);
             $data= $query->fetch();
             if(!empty($data)){
                 return new Rdv($data);

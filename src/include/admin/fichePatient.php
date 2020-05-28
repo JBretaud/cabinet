@@ -143,7 +143,7 @@
                         <a v-if="!show_choixMed" @click.prevent="toggleChoixMed">- Déclarer un médecin référent -</a>
                         <div v-if="show_choixMed">
                             <form action="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/fiche/update" method='post'>
-                                <select name="idPraticien">
+                                <select name="idPraticien" class="form-control">
                                     <?php foreach($ListePraticiens as $praticien):?>
                                     <option value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>
                                     <?php endforeach;?>
@@ -174,23 +174,28 @@
                     <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                         <h2 class="mb-2">Prochain Rendez-vous :</h2>
                         <p>Le <?=$prochainRdv->getDate()." à ".$heure."<br>avec Dr.". $praticienRdv?></p>
-                        <a href="/cabinet/<?= ($path[0]==="praticient" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">- Réserver un rendez-vous -</a>
+                        <a href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">- Réserver un rendez-vous -</a>
                     </div>
                     <?php else: ?>
                     <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                         <h2 >Prochain rendez-vous :</h2>
                         <h3>Pas de rendez-vous programmé</h3>
                         <div class="link-group">
-                            <a href="/cabinet/<?= ($path[0]==="praticient" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">Réserver un créneau</a>
+                            <a href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">Réserver un créneau</a>
                             <img src='/cabinet/src/img/highlight.png'>
                         </div>
                     </div>
                     <?php endif; ?>
                 </div>
                 <div class="row">
-                    <div class="col-12 mt-4 d-flex flex-column align-items-center">
-                        <h1>Documents:</h1>
-                        <img class="separator" src='/cabinet/src/img/separator.png'>
+                    <div class="col-12 d-flex flex-column align-items-center">
+                        <div class="col-12mt-4 d-flex flex-column align-items-center">
+                            <h1>Documents:</h1>
+                            <img class="separator" src='/cabinet/src/img/separator.png'>
+                        <div>
+                    <?php if($_SESSION['type']===2):?>
+                        <a class="btn btn-light" href="/cabinet/praticien/ordonnance/new?idPatient=<?=$idPatient?>">Editer une ordonnance</a>
+                    <?php endif;?>
                     </div>
                 </div>
             </div>

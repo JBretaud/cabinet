@@ -562,16 +562,21 @@ ul {
 .dispRdv li{
     text-decoration:none;
     background-color:rgb(231, 231, 231);
-    color:#0094eeff;
+    color:rgb(48, 186, 190);
     border-radius: 8px;
     overflow:hidden;
     width:70vh;
-
 }
 .dispRdv a{
     text-decoration:none;
     background-color:rgb(231, 231, 231);
-    color:#0094eeff;
+    color:rgb(48, 186, 190);
+    height:70px;
+}
+.dispRdv a:hover{
+    text-decoration:none;
+    background-color:rgb(221, 220, 220);
+    color:rgb(48, 186, 190);
     height:70px;
 }
 #formRdv .date{
@@ -602,6 +607,11 @@ ul {
     width:14px;
 }
 .BlueSideArrows:hover{
+    background-color:rgb(231, 231, 231) !important;
+    color:rgb(231, 231, 231) !important;
+    border-color:rgb(231, 231, 231)!important;
+}
+.GreenSideArrows:hover{
     background-color:rgb(231, 231, 231) !important;
     color:rgb(231, 231, 231) !important;
     border-color:rgb(231, 231, 231)!important;

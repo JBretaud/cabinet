@@ -16,10 +16,10 @@
     } catch (\Exception $e){
         $day = new Day();
     }
-    if(isset($_GET['idPraticien'])&&$_GET['idPraticien']!="---"){
-        $idPraticien=$_GET['idPraticien'];
-    }elseif(isset($_POST['idPraticien'])){
+    if(isset($_POST['idPraticien'])){
         $idPraticien=$_POST['idPraticien'];
+    }elseif(isset($_GET['idPraticien'])&&$_GET['idPraticien']!="---"){
+        $idPraticien=$_GET['idPraticien'];
     }elseif($_SESSION['type']===1||$_SESSION['type']===3){
         
         require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'patientDAO.php';
@@ -108,11 +108,25 @@
             <select class="form-control" onchange="this.form.submit()" name="idPraticien">
                 <option value="---">---</option>
                 <?php foreach($ListePraticiens as $Praticien): ?>
-                <option value="<?= $Praticien->getIdPraticien() ?>" <?php if(isset($_POST['idPraticien'])||isset($_GET['idPraticien'])){if((isset($_POST['idPraticien']) && $Praticien->getIdPraticien()==$_POST['idPraticien'])||(isset($_GET['idPraticien']) && $Praticien->getIdPraticien()==$_GET['idPraticien'])){ echo "selected";}}elseif($idPraticien==$Praticien->getIdPraticien()){ echo "selected";}?>><?="Dr. ".$Praticien->getPrenom().' '.$Praticien->getNom()?></option>
+                <option value="<?= $Praticien->getIdPraticien() ?>" <?php 
+                    if(isset($_POST['idPraticien'])||isset($_GET['idPraticien'])){
+                        if(isset($_POST['idPraticien'])&&$_POST['idPraticien']!=null){
+                            if($Praticien->getIdPraticien()==$_POST['idPraticien']){
+                                echo "selected ";
+                            }
+                        }else{
+                            if(isset($_GET['idPraticien']) && $Praticien->getIdPraticien()==$_GET['idPraticien']){
+                                echo "selected";
+                            }elseif($idPraticien==$Praticien->getIdPraticien()){
+                                echo "selected";
+                            }
+                        }
+                    }?>
+                ><?="Dr. ".$Praticien->getPrenom().' '.$Praticien->getNom()?></option>
                 <?php endforeach;?>
             </select>
     </form>
-    <div class="d-flex flex-row align-items-center justify-content-between col-xl-6 col-lg-7 col-md-10 col-sm-12">
+    <div class="mt-5 d-flex flex-row align-items-center justify-content-between col-xl-6 col-lg-7 col-md-10 col-sm-12">
         <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->previousDay()->getMonth()?>&year=<?= $day->previousDay()->getYear(); ?>&day=<?= $day->previousDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/left vert.png"></a>
         <h1><?=$day->toString()?></h1>
         <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->nextDay()->getMonth()?>&year=<?= $day->nextDay()->getYear(); ?>&day=<?= $day->nextDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/right vert.png"></a>
