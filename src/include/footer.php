@@ -27,29 +27,29 @@ methods: {
 </script>
 <?php
     if (isset($path)){
-        if($path[0]=="account"&&$path[1]=="new"){
+        if($path[0]=="account"&&$path[1]==="new"){
             if(isset($path[2])){
-                if($path[2]=="etape1"){
+                if($path[2]==="etape1"){
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'scriptVueEtape1.php';
                 }
             }else{
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'scriptVueEtape1.php';
             }
-        }elseif($path[0]=="admin"&&$_SESSION['type']===3||$path[0]=="praticien"&&$_SESSION['type']===2){
-            if($path[1]=="recherche"&&$path[2]=="patient"){
+        }elseif(isset($_SESSION['type']) && $path[0]=="admin"&&$_SESSION['type']===3||$path[0]==="praticien"&&$_SESSION['type']===2){
+            if($path[1]=="recherche"&&$path[2]==="patient"){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueRecherche.php';
-            }elseif($path[1]=="fiche"){
+            }elseif($path[1]==="fiche"){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueChoixMed.php';
             }
         }
-        if($path[0]=='admin'&&$_SESSION['type']=3){
-            if($path[1]=="rdv"){
-                if($path[2]=="new"){
+        if(isset($_SESSION) && $path[0]==='admin'&&$_SESSION['type']===3){
+            if($path[1]==="rdv"){
+                if($path[2]==="new"){
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueAfficheRdv.php';
                 }
             }
         }
-        if($path[0]==='patient'&&$_SESSION['type']=1){
+        if(isset($_SESSION) && $path[0]==='patient'&&$_SESSION['type']===1){
             if($path[1]==="rdv"){
                 if($path[2]==="new"){
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueAfficheRdv.php';
@@ -60,6 +60,13 @@ methods: {
                 }
             }
         }
+        
+        if($path[0]==='ordonnance'){
+            if($path[1]==='form'){
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'OrdonnanceVue.php';
+            }
+        }
+        
     }
     if(isset($_GET['alert'])||(isset ($path[1]) && $path[1]==="errorLogin")) require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toasts.php';
 ?>

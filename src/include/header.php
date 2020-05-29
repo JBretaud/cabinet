@@ -6,7 +6,7 @@ if(!empty($_GET['path'])){
 }
 ?>
 
-<?php if($path[0]!="ordonnance" || ($path[0]==="ordonnance" && $path[1]=="vide")):?>
+<?php if($path[0]!="ordonnance" || ($path[0]==="ordonnance" && $path[1]=="form")):?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -34,11 +34,11 @@ if($path[0]!="ordonnance"):?>
             <div>
             <a href="/cabinet/accueil" class="navbar-brand home">&#8962;</a>
         <?php if(isset($_SESSION['login'])):?>
-            <a <?php if($_SESSION['type']!=3){echo "href='/cabinet/patient/profil'";}else{echo "href='#'";} ?> id="loggedName" class ="navbar-brand"><?=strtoupper($_SESSION['login'])?></a>
-            <?php if($_SESSION['type']==3||$_SESSION['type']==2): ?>
-            <a href='<?=($_SESSION['type']==3) ? "/cabinet/admin/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-brand">RECHERCHE PATIENT</a>
+            <a <?php if($_SESSION['type']===1){echo "href='/cabinet/patient/profil'";}else{echo "href='#'";} ?> id="loggedName" class ="navbar-brand"><?=strtoupper($_SESSION['login'])?></a>
+            <?php if($_SESSION['type']===3||$_SESSION['type']===2): ?>
+            <a href='<?=($_SESSION['type']===3) ? "/cabinet/admin/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-brand">RECHERCHE PATIENT</a>
             <?php endif; ?>
-            <?php if($_SESSION['type']==1): 
+            <?php if($_SESSION['type']===1): 
                 require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
                 ?>
                 <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-brand">PRENDRE RDV</a>

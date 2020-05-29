@@ -5,7 +5,7 @@
 
 
 if(isset($path)){
-    if ($path[0]=="account"){
+    if ($path[0]==="account"){
         if ($path[1]==="new"){
             if(!isset($path[2])){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'newAccount'.DIRECTORY_SEPARATOR.'etape1.php';
@@ -40,90 +40,95 @@ if(isset($path)){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
         
-    }elseif ($path[0]==='admin'&&$_SESSION['type']===3){
-        if ($path[1]==='recherche'&&$path[2]==='patient'){
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'recherchePatient.php';
-        }elseif($path[1]==='fiche'){
-            if(isset($path[2])){
-                if($path[2]==='update'){
-                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+    }
+    if(isset($_SESSION['type'])){
+        if ($path[0]==='admin'&&$_SESSION['type']===3){
+            if ($path[1]==='recherche'&&$path[2]==='patient'){
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'recherchePatient.php';
+            }elseif($path[1]==='fiche'){
+                if(isset($path[2])){
+                    if($path[2]==='update'){
+                        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+                    }
+                }else{
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
                 }
-            }else{
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
-            }
-        }elseif ($path[1]==='rdv'){
-            if ($path[2]==='new'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'priseRdv.php';
-            }elseif($path[2]==='book'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
-            }elseif($path[2]==='finalize'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'bookRdv.php';
-            }elseif($path[2]==='display'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'showRdv.php';
-            }elseif($path[2]==='modify'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
-            }elseif($path[2]==='cancel'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'cancelRdv.php';
-            }elseif($path[2]==='update'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updateRdv.php';
-            }else{
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
-            }
-        }else{
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
-        }
-    }elseif($path[0]==='praticien'&&$_SESSION['type']===2){
-        if ($path[1]==='recherche'&&$path[2]==='patient'){
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'recherchePatient.php';
-        }elseif($path[1]==='fiche'){
-            if(isset($path[2])){
-                if($path[2]==='update'){
-                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
-                }
-            }else{
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
-            }
-        }elseif($path[1]==="ordonnance"){
-            if($path[2]==="new"){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'OrdonnanceEdit.php';
-            }
-        }else{
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
-        }
-    }elseif($path[0]==='patient'&&$_SESSION['type']===1){
-        if ($path[1]==='rdv'){
-            if ($path[2]==='new'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'priseRdv.php';
-            }elseif($path[2]==='book'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
-            }elseif($path[2]==='finalize'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'bookRdv.php';
-            }elseif($path[2]==='display'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'showRdv.php';
-            }elseif($path[2]==='modify'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
-            }elseif($path[2]==='cancel'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'cancelRdv.php';
-            }elseif($path[2]==='update'){
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updateRdv.php';
-            }else{
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
-            }
-        }elseif($path[1]==='profil'){
-            if(isset($path[2])){
-                if ($path[2]==='update'){
-                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+            }elseif ($path[1]==='rdv'){
+                if ($path[2]==='new'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'priseRdv.php';
+                }elseif($path[2]==='book'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
+                }elseif($path[2]==='finalize'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'bookRdv.php';
+                }elseif($path[2]==='display'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'showRdv.php';
+                }elseif($path[2]==='modify'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
+                }elseif($path[2]==='cancel'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'cancelRdv.php';
+                }elseif($path[2]==='update'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updateRdv.php';
                 }else{
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
                 }
             }else{
-                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'profil.php';
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
             }
-            
-        }else{
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+        }elseif(isset($_SESSION) && $path[0]==='praticien'&&$_SESSION['type']===2){
+            if ($path[1]==='recherche'&&$path[2]==='patient'){
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'recherchePatient.php';
+            }elseif($path[1]==='fiche'){
+                if(isset($path[2])){
+                    if($path[2]==='update'){
+                        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+                    }
+                }else{
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'fichePatient.php';
+                }
+            }elseif($path[1]==="ordonnance"){
+                if($path[2]==="new"){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'OrdonnanceEdit.php';
+                }
+            }else{
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+            }
+        }elseif($path[0]==='patient'&&$_SESSION['type']===1){
+            if ($path[1]==='rdv'){
+                if ($path[2]==='new'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'priseRdv.php';
+                }elseif($path[2]==='book'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
+                }elseif($path[2]==='finalize'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'bookRdv.php';
+                }elseif($path[2]==='display'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'showRdv.php';
+                }elseif($path[2]==='modify'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdv.php';
+                }elseif($path[2]==='cancel'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'cancelRdv.php';
+                }elseif($path[2]==='update'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updateRdv.php';
+                }else{
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+                }
+            }elseif($path[1]==='profil'){
+                if(isset($path[2])){
+                    if ($path[2]==='update'){
+                        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'updatePatient.php';
+                    }else{
+                        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+                    }
+                }else{
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'profil.php';
+                }
+                
+            }else{
+                require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
+            }
         }
-    }elseif ($path[0]==="logout"){
+    
+    }
+    if ($path[0]==="logout"){
         require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'logout.php';
     }elseif ($path[0]==="login"){
         require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'login.php';
@@ -146,17 +151,14 @@ if(isset($path)){
     }elseif($path[0]==="ordonnance"){
         if($path[1]==="display"){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceToPdf.php';
-        }elseif($path[1]==="vide"){
-            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceVide.php';
+        }elseif($path[1]==="form"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceForm.php';
         }else{
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
-    }else{
-        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
     }
 }else{
     
     require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'accueil.php';
 }
 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'footer.php';
-        

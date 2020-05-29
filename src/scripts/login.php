@@ -13,6 +13,9 @@ if(!empty($_POST['login'])){
         $_SESSION['login']=$user->getLogin();
         $_SESSION['type']=$user->getIdTypeUtilisateur();
         $_SESSION['id']=$user->getIdUtilisateur();
+        if($_SESSION['type']===2){
+            $_SESSION['idPraticien']=$user->getIdPraticien();
+        }
         header('Location: /cabinet/accueil');
         exit();
     }else{

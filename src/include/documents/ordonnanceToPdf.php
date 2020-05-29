@@ -15,11 +15,12 @@ function Header()
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'praticienDAO.php';
     include ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY_SEPARATOR."bdd.php");
     $praticienDAO=new praticienDAO($pdo);
-    $praticien=$praticienDAO->get($_SESSION['id']);
+    $praticien=$praticienDAO->get($_SESSION['idPraticien']);
     $patientDAO=new patientDAO($pdo);
     $patient=$patientDAO->get($_GET['idPatient']);
     $patientPrenom=ucfirst($patient->getPrenom());
     $patientNom=strtoupper($patient->getNom());
+    
 
     $this->SetFont('Arial','',12);
     $this->SetTextColor(48,186,190);
@@ -40,6 +41,20 @@ function Header()
     $this->Cell(0,7,'','B',1,'L');
     // Logo
     $this->Image('..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'logo_nom.png',95,11,40);
+    $chemincode=explode("/",$praticien->getCheminPhoto());
+    $cheminsCode=[];
+    for($i=1;$i<=2;$i++){
+        $chemincodefin="";
+        for($j=0;$j<sizeof($chemincode)-1;$j++){
+            $chemincodefin.=$chemincode[$j].DIRECTORY_SEPARATOR;
+        }
+
+        $chemincodefin.="CB".$i.".jpg";
+        array_push($cheminsCode,$chemincodefin);
+    }
+    
+    $this->Image($cheminsCode[0],15,35,20);
+    $this->Image($cheminsCode[1],37,35,20);
     $this->ln(10);
 
 }
@@ -52,7 +67,9 @@ function Footer()
     // Arial italic 8
     $this->SetFont('Arial','I',8);
     // Page number
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+    $this->SetTextColor(48,186,190);
+    $this->SetDrawColor(48,186,190);
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}','T',0,'C');
 }
 }
 
@@ -63,14 +80,20 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'praticienDAO.php';
 include ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY_SEPARATOR."bdd.php");
 $praticienDAO=new praticienDAO($pdo);
-$praticien=$praticienDAO->get($_SESSION['id']);
+$praticien=$praticienDAO->get($_SESSION['idPraticien']);
 $patientDAO=new patientDAO($pdo);
 $patient=$patientDAO->get($_GET['idPatient']);
 $patientPrenom=ucfirst($patient->getPrenom());
 $patientNom=strtoupper($patient->getNom());
 $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 $array=explode("-",$patient->getDateNaissance());
-$dateNaissance=$array[0].' '.$months[$array[1]-1].' '.$array[2];
+$dateNaissance=$array[2].' '.$months[$array[1]-1].' '.$array[0];
+$ListeMeds=[];
+foreach($_POST as $key=>$value){
+    if(strpos($key, "Medicament") !== false){
+        $ListeMeds[$key]=$value;
+    }
+}
 
 $pdf = new PDF('P','mm','A5');
 $pdf->AliasNbPages();
@@ -81,18 +104,23 @@ $pdf->SetTextColor(48,186,190);
 $ajd=new DateTime();
 $date=$ajd->format('d').' '.$months[$ajd->format('m')-1].' '.$ajd->format('Y');
 $pdf->Cell(120,5,'Nantes, le '.$date.',','',1,'R');
-$pdf->SetFont('Arial','',8);
-$pdf->SetTextColor(0,0,0);
+$pdf->SetTextColor(95, 95, 95);
+$pdf->SetFont('Arial','B',12);
 $pdf->Cell(10,4,'','',0);
 $pdf->Cell(0,4,"{$patient->getNom()} {$patient->getPrenom()}",'',1);
 $pdf->Cell(10,4,'','',0);
+$pdf->SetFont('Arial','',8);
 $pdf->Cell(0,4,utf8_decode('Né le : ').$dateNaissance,'',1);
 $pdf->ln(4);
-for($i=1;$i<=4;$i++){
+foreach($ListeMeds as $Med){
+    $pdf->SetTextColor(95, 95, 95);
+    $pdf->SetFont('Arial','B',10);
     $pdf->Cell(15,8,'','',0);
-    $pdf->Cell(60,10,'Medicament '.$i.' :','',0);
-    
-    $pdf->Cell(0,10,'Conseil '.$i,'',1);
+    $pdf->Cell(30,5,utf8_decode($Med['nom']),'',0);
+    $pdf->SetFont('Arial','I',8);
+    $pdf->SetTextColor(0, 0, 0);
+    $pdf->MultiCell(0,5,utf8_decode($Med['pos']));
+    $pdf->ln(8);
 }
 $pdf->Output();
 ?>

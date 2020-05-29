@@ -648,4 +648,7 @@ ul {
     flex-direction:row;
     align-items:center;
 }
-
+.label{
+    background-color: #CCC;
+    height:100%;
+}

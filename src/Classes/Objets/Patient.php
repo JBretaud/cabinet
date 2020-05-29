@@ -72,6 +72,7 @@ class Patient{
 
     //SETTERS
 
+
     public function setNom($nom){
         $this->nom = $nom;
     }
