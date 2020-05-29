@@ -89,7 +89,7 @@ $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','S
 $array=explode("-",$patient->getDateNaissance());
 $dateNaissance=$array[2].' '.$months[$array[1]-1].' '.$array[0];
 $ListeMeds=[];
-foreach($_POST as $key=>$value){
+foreach($_GET as $key=>$value){
     if(strpos($key, "Medicament") !== false){
         $ListeMeds[$key]=$value;
     }
@@ -119,7 +119,7 @@ foreach($ListeMeds as $Med){
     $pdf->Cell(30,5,utf8_decode($Med['nom']),'',0);
     $pdf->SetFont('Arial','I',8);
     $pdf->SetTextColor(0, 0, 0);
-    $pdf->MultiCell(0,5,utf8_decode($Med['pos']));
+    $pdf->MultiCell(0,5,utf8_decode($Med['posologie']));
     $pdf->ln(8);
 }
 $pdf->Output();

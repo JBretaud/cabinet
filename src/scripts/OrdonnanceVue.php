@@ -11,20 +11,34 @@ el: '#frameForm',
 data: {
     listeMed: {
         <?php for($i=0 ; $i<$nbMed ; $i++){
-            if(isset($Meds[$i])&&isset($Pos[$i])){
+            if(isset($Meds[$i])&&isset($Posologie[$i])){
+                $idMedicament="\"{$idMeds[$i]}\"";
                 $nom="\"{$Meds[$i]}\"";
-                $pos="\"{$Pos[$i]}\"";
+                $posologie="\"{$Posologie[$i]}\"";
             }else{
+                $idMedicament="\"\"";
                 $nom="\"\"";
-                $pos="\"\"";
+                $posologie="\"\"";
             }
              echo "{$i}: {";
-             echo "nom: $nom,";
-             echo "pos: $pos},";
+             echo "idMedicament: $idMedicament, ";
+             echo "nom: $nom, ";
+             echo "posologie: $posologie},";
          }?>
     },
     
 },
+beforeMount(){
+        console.log(this.listeMed);
+    },
+methods:{
+    setNom:function(){
+        console.log(this.listeMed);
+        console.log(this.listeMed[0]);
+    }
+},
+
+
 
 
 });

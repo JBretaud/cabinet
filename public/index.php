@@ -153,6 +153,8 @@ if(isset($path)){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceToPdf.php';
         }elseif($path[1]==="form"){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceForm.php';
+        }elseif($path[1]==="create"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'ordonnanceCreate.php';
         }else{
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }

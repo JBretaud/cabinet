@@ -1,8 +1,11 @@
 <?php
-class Med{
+
+class LigneOrdonnance{
     
+    private $idLigne;
     private $idMedicament;
-    private $nom;
+    private $posologie;
+    private $idOrdonnance;
     
 
     public function __construct(?Array $properties){
@@ -28,22 +31,35 @@ class Med{
 
     // GETTERS
 
+    public function getIdLigne(){
+        return $this->idLigne;
+    }
     public function getIdMedicament(){
         return $this->idMedicament;
     }
-    public function getNom(){
-        return $this->nom;
+    public function getIdOrdonnance(){
+        return $this->idOrdonnance;
     }
+    public function getPosologie(){
+        return $this->posologie;
+    }
+    
 
 
     //SETTERS
 
-    public function setNom($nom){
-        $this->nom = $nom;
-    }
 
+    public function setPosologie($posologie){
+        $this->posologie = $posologie;
+    }
+    public function setIdLigne($idLigne){
+        $this->idLigne = $idLigne;
+    }
     public function setIdMedicament($idMedicament){
         $this->idMedicament = $idMedicament;
+    }
+    public function setIdOrdonnance($idOrdonnance){
+        $this->idOrdonnance = $idOrdonnance;
     }
 
 }

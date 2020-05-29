@@ -13,11 +13,21 @@ class medDAO{
         $query->execute();
         $data = $query->fetchAll();
         $ListeMeds=[];
+        
         foreach ($data as $attributes){
             array_push($ListeMeds,new Med($attributes));
         }
         return $ListeMeds;
     }
+    public function get($id){
+        $query = $this->pdo->prepare('SELECT * FROM medicaments WHERE idMedicament=:idMedicament;');
+        $query->execute([
+            'idMedicament'=>$id,
+        ]);
+        $data=$query->fetch();
+        return new Med($data);
+    }
+    
 }
 
 ?>
