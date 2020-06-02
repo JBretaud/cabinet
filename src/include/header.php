@@ -4,6 +4,13 @@ include_once ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY
 if(!empty($_GET['path'])){
     $path=explode("/",$_GET['path']);
 }
+if ($path[0]!=("ordonnance"&&$path[0]!="praticien")&&$path[1]!="ordonnance"){
+    if(isset($_SESSION['idOrdonnance'])) {
+        unset($_SESSION['idOrdonnance']);
+    }
+}
+
+
 ?>
 
 <?php if($path[0]!="ordonnance" || ($path[0]==="ordonnance" && $path[1]=="form")):?>

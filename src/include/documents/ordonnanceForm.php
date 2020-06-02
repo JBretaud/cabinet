@@ -66,7 +66,6 @@
                 <a href="/cabinet/ordonnance/cancel?idOrdonnance=''" class="btn btn-danger">Annuler</a>
                 <button type="submit" class="btn btn-primary">Générer</button>
             </div>
-            
         </form>
         <form class="w-100" method="get" action="/cabinet/ordonnance/form" target="iframeForm">
             <input type="hidden" value=<?= $_GET['idPatient']?> name="idPatient">

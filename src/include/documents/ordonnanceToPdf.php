@@ -95,21 +95,29 @@ foreach($_GET as $key=>$value){
     }
 }
 
+
+
+
 $pdf = new PDF('P','mm','A5');
 $pdf->AliasNbPages();
 $pdf->AddPage();
+
 $pdf->SetFont('Arial','',8);
 $pdf->SetTextColor(48,186,190);
 
 $ajd=new DateTime();
 $date=$ajd->format('d').' '.$months[$ajd->format('m')-1].' '.$ajd->format('Y');
 $pdf->Cell(120,5,'Nantes, le '.$date.',','',1,'R');
+
 $pdf->SetTextColor(95, 95, 95);
 $pdf->SetFont('Arial','B',12);
+
 $pdf->Cell(10,4,'','',0);
-$pdf->Cell(0,4,"{$patient->getNom()} {$patient->getPrenom()}",'',1);
+$pdf->Cell(0,4,utf8_decode("{$patient->getNom()} {$patient->getPrenom()}"),'',1);
 $pdf->Cell(10,4,'','',0);
+
 $pdf->SetFont('Arial','',8);
+
 $pdf->Cell(0,4,utf8_decode('Né le : ').$dateNaissance,'',1);
 $pdf->ln(4);
 foreach($ListeMeds as $Med){

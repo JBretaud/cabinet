@@ -9,12 +9,29 @@ class ligneOrdonnanceDAO{
         $this->pdo=$pdo;
     }
     public function create(LigneOrdonnance $ligneOrdonnance){
-        var_dump($ligneOrdonnance);
         $query = $this->pdo->prepare('INSERT INTO ligneordonnance(idOrdonnance , idMedicament, posologie)VALUES(:idOrdonnance , :idMedicament, :posologie);');
         $query->execute([
             'posologie'=>$ligneOrdonnance->getPosologie(),
             'idMedicament'=>$ligneOrdonnance->getIdMedicament(),
-            'idOrdonnance'=>$ligneOrdonnance->getIdOrdonnance(),
+            'idOrdonnance' => $ligneOrdonnance->getIdOrdonnance(),
+        ]);
+    }
+    public function getOrdonnance(int $idOrdonnance){
+        $query = $this->pdo->prepare('SELECT * FROM ligneordonnance WHERE idOrdonnance = :idOrdonnance;');
+        $query->execute([
+            ['idOrdonnance']=>$idOrdonnance,
+        ]);
+        $data=$query->fetchAll();
+        $return=[];
+        foreach($data as $ligne){
+            array_push($return,$ligne);
+        }
+        return $return;
+    }
+    public function delete($idOrdonnance){
+        $query = $this->pdo->prepare('DELETE FROM ligneordonnance WHERE idOrdonnance=:idOrdonnance');
+        $query->execute([
+            'idOrdonnance'=>$idOrdonnance,
         ]);
     }
 }
