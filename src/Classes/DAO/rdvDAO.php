@@ -90,6 +90,21 @@
             return $ListeRdv;
         }
 
+        public function getPatient(int $idPatient):array{
+            $result=[];
+            $query=$this->pdo->prepare("SELECT * FROM rdv WHERE idPatient=:idPatient");
+            $query->execute([
+                'idPatient'=>$idPatient,
+            ]);
+            $data=$query->fetchAll();
+            foreach($data as $rdv){
+                array_push($result,new Rdv($rdv));
+            }
+            usort($result,array("rdvDAO","cmpOnDate"));
+
+            return $result;
+        }
+
         public function getSpan(?Datetime $start,?Datetime $end,$personne){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Patient.php';
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Praticien.php';
@@ -121,6 +136,14 @@
             foreach($data as $rdv){
                 array_push($ListeRdv,new Rdv($rdv));
             }
+            
             return $ListeRdv;
+        }
+
+        private static function cmpOnDate(rdv $rdv1,rdv $rdv2) :int{
+            $date1=new DateTime($rdv1->getStart());
+            $date2=new DateTime($rdv2->getStart());
+            if($date1===$date2) return 0;
+            return ($date1<$date2) ? 1 : -1;
         }
     }

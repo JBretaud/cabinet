@@ -68,8 +68,10 @@
             }
         }
         public function update($User){
-            print_r($User);
+            
+            
             $requete="idUtilisateur=".$User->getIdUtilisateur().", login='".$User->getLogin()."', pass='".$User->getPass()."', idTypeUtilisateur=".$User->getIdTypeUtilisateur()."";
+            if(!empty($User->getEmail()))  $requete.=", email=\"".$User->getEmail()."\"";
             if(!empty($User->getIdPatient())){
                 $requete.=", idPatient=".$User->getIdPatient();
             }

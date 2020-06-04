@@ -10,7 +10,7 @@
     }elseif($_SESSION['type']==3){
         $typeUser="admin";
     }
-    
+    var_dump($typeUser);
     try {
         $day = new Day($_GET['year'] ?? null,$_GET['month'] ?? null, $_GET['day'] ?? null);
     } catch (\Exception $e){

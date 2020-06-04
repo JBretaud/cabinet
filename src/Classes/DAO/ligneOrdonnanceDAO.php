@@ -21,15 +21,15 @@ class ligneOrdonnanceDAO{
             'idOrdonnance' => $ligneOrdonnance->getIdOrdonnance(),
         ]);
     }
-    public function getOrdonnance(int $idOrdonnance){
+    public function getOrdonnance($idOrdonnance){
         $query = $this->pdo->prepare('SELECT * FROM ligneordonnance WHERE idOrdonnance = :idOrdonnance;');
         $query->execute([
-            ['idOrdonnance']=>$idOrdonnance,
+            'idOrdonnance'=>$idOrdonnance,
         ]);
         $data=$query->fetchAll();
         $return=[];
         foreach($data as $ligne){
-            array_push($return,$ligne);
+            array_push($return,new LigneOrdonnance($ligne));
         }
         return $return;
     }

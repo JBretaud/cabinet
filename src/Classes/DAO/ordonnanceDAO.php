@@ -96,17 +96,19 @@ class ordonnanceDAO{
         $data=$query->fetchAll();
         $return=[];
         foreach($data as $ordonnance){
-            $ordonnance['lignes']=$ligneOrdonnanceDAO->getOrdonnance($ordonnance['idOrdonnance']);
-            array_push(new Ordonnance($ordonnance),$return);
+            
+            $ordonnance['lignes']=$ligneOrdonnanceDAO->getOrdonnance(intval($ordonnance['idOrdonnance']));
+            array_push($return,new Ordonnance($ordonnance));
         }
-        function CmpOnDate(Ordonnance $ordo1,Ordonnance $ordo2){
-            $date1=new DateTime($ordo1->getDateOrdonnance());
-            $date2=new DateTime($ordo2->getDateOrdonnance());
-            if($date1===$date2) return 0;
-            return ($date1<$date2) ?  -1 : 1;
-        }
-        usort($return,"CmpOnDate");
+        
+        usort($return,array('ordonnanceDAO',"CmpOnDate"));
         return $return;
+    }
+    private static function CmpOnDate(Ordonnance $ordo1,Ordonnance $ordo2){
+        $date1=new DateTime($ordo1->getDateOrdonnance());
+        $date2=new DateTime($ordo2->getDateOrdonnance());
+        if($date1===$date2) return 0;
+        return ($date1<$date2) ?  -1 : 1;
     }
     
 }

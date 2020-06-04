@@ -22,6 +22,8 @@
         $idDAO=new idDAO($pdo);
         $user=$idDAO->get($_POST['idUtilisateur'],null);
         $user->setIdPatient($_POST['idPatient']);
+        $user->setEmail($_POST['email']);
+       
         $idDAO->update($user);
     }else{
         $patient=new Patient($_POST);
