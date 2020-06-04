@@ -25,6 +25,7 @@ class medDAO{
             'idMedicament'=>$id,
         ]);
         $data=$query->fetch();
+        if(empty($data))return null;
         return new Med($data);
     }
     

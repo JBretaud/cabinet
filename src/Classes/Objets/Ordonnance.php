@@ -5,6 +5,7 @@ class Ordonnance{
     private $idPraticien;
     private $idOrdonnance;
     private $lignes;
+    private $dateOrdonnance;
     
 
     public function __construct(?Array $properties){
@@ -42,6 +43,9 @@ class Ordonnance{
     public function getIdOrdonnance(){
         return $this->idOrdonnance;
     }
+    public function getDateOrdonnance(){
+        return $this->dateOrdonnance;
+    }
     
 
 
@@ -59,6 +63,9 @@ class Ordonnance{
     }
     public function setLignes(array $lignes){
         $this->lignes = $lignes;
+    }
+    public function setDateOrdonnance(string $dateOrdonnance){
+        $this->dateOrdonnance = $dateOrdonnance;
     }
 
 }

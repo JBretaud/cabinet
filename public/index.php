@@ -148,19 +148,23 @@ if(isset($path)){
             
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
-    }elseif($path[0]==="ordonnance"){
+    }elseif($path[0]==="ordonnance" && $_SESSION['type']===2){
         if($path[1]==="display"){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceToPdf.php';
         }elseif($path[1]==="form"){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'documents'.DIRECTORY_SEPARATOR.'ordonnanceForm.php';
         }elseif($path[1]==="create"){
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'ordonnanceCreate.php';
-        }else{
+        }elseif($path[1]==="cancel"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'ordonnanceDelete.php';
+        }elseif($path[1]==="dl"){
+            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'ordonnanceDl.php';
+        } else{
             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
         }
     }
 }else{
     
-    require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'accueil.php';
+    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'accueil.php';
 }
 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'footer.php';

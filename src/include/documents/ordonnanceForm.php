@@ -44,7 +44,7 @@
             </p>
         </div>
         <div id="frameForm">
-        <form action="/cabinet/ordonnance/create?idPatient=<?= $_GET['idPatient']?>" class="border-0 d-flex flex-column my-2 align-items-end" method="post" target="myiframe" >
+        <form action="/cabinet/ordonnance/create?idPatient=<?= $_GET['idPatient']?>" class="border-0 d-flex flex-column my-2 align-items-end" method="post" target="myiframe">
             <?php for($i=0;$i<$nbMed;$i++):?>
                 <div class="d-flex flex-row w-100 align-items-center my-2">
                     <div class="d-flex flex-column w-25 align-items-center m-0 pt-1 rounded label">
@@ -63,8 +63,9 @@
                 </div>
             <?php endfor;?>
             <div class="pt-4">
-                <a href="/cabinet/ordonnance/cancel?idOrdonnance=''" class="btn btn-danger">Annuler</a>
-                <button type="submit" class="btn btn-primary">Générer</button>
+                <a href="/cabinet/ordonnance/cancel?idPatient=<?=$_GET['idPatient']?>" class="btn btn-danger" target="_parent">Annuler</a>
+                <button type="submit" name="apercu" class="btn btn-warning">Aperçu</button>
+                <button type="submit" name="dl" class="btn btn-primary">Télécharger et revenir à la fiche</button>
             </div>
         </form>
         <form class="w-100" method="get" action="/cabinet/ordonnance/form" target="iframeForm">

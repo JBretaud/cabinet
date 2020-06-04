@@ -24,25 +24,33 @@
     $attributes['idPraticien']=$_SESSION['idPraticien'];
     $attributes['idPatient']=$_GET['idPatient'];
     $attributes['lignes']=$lignes;
+    $ajd=new DateTime();
+    $attributes['dateOrdonnance']=$ajd->format('Y-m-d');
+    
     if(isset($_SESSION['idOrdonnance'])&&!empty($_SESSION['idOrdonnance'])){
         $attributes['idOrdonnance']=$_SESSION['idOrdonnance'];
     }
     $ordonnance=new Ordonnance($attributes);
+    // var_dump($ordonnance);
     if(!isset($_SESSION['idOrdonnance'])){
         $ordonnanceDAO->create($ordonnance);
     }else{
-        var_dump($_SESSION['idOrdonnance']);
+        // var_dump($ordonnance);
         $ordonnanceDAO->update($ordonnance);
     }
 
     $gets='';
-    foreach($_POST as $key=>$value){
-        if(strpos($key, "Medicament") !== false){
-            $Med=$medDAO->get($value['idMedicament']);
-            $nom=$Med->getNom();
-            $posologie=$value['posologie'];
-            $gets.="&{$key}[nom]={$nom}&{$key}[posologie]={$posologie}";
+    
+    
+        foreach($_POST as $key=>$value){
+            if(strpos($key, "Medicament") !== false && !empty($value['idMedicament'])){
+                $Med=$medDAO->get($value['idMedicament']);
+                $nom=$Med->getNom();
+                $posologie=$value['posologie'];
+                $gets.="&{$key}[nom]={$nom}&{$key}[posologie]={$posologie}";
+            }
         }
-    }
-      header('Location: /cabinet/ordonnance/display?idPatient='.$_GET['idPatient'].$gets);
-      exit();
+    
+    (isset($_POST['apercu'])) ? $button='&button=apercu' : ((isset($_POST['dl'])) ? $button='&button=dl' :$button='');
+    header('Location: /cabinet/ordonnance/display?idPatient='.$_GET['idPatient'].$gets.$button);
+    exit();

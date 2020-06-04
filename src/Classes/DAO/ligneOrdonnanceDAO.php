@@ -8,6 +8,11 @@ class ligneOrdonnanceDAO{
     public function __construct($pdo){
         $this->pdo=$pdo;
     }
+    
+    /**
+     * param $ligneOrdonnance
+    *@throws Exception;
+    */
     public function create(LigneOrdonnance $ligneOrdonnance){
         $query = $this->pdo->prepare('INSERT INTO ligneordonnance(idOrdonnance , idMedicament, posologie)VALUES(:idOrdonnance , :idMedicament, :posologie);');
         $query->execute([

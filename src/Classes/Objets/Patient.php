@@ -33,6 +33,24 @@ class Patient{
     }
   }
 }
+    public function toString() :string {
+        $attributes=[];
+        foreach($this as $key=>$value){
+            $attributes[$key]=$value;
+        }
+        $output = implode(', ', array_map(
+            function ($v, $k) {
+                if(is_array($v)){
+                    return $k.'[]='.implode('&'.$k.'[]=', $v);
+                }else{
+                    return $k.'='.$v;
+                }
+            }, 
+            $attributes, 
+            array_keys($attributes)
+        ));
+        return $output;
+    }
 
     // GETTERS
 

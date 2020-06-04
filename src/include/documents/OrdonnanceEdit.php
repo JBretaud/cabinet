@@ -16,11 +16,11 @@
     
 ?>
 
-<div class="d-flex flex-column align-items-center w-100" style="background-color:#d3f4f5;">
+<div class="d-flex flex-column align-items-center w-100 py-3" style="background-color:#d3f4f5;">
     <h1> Ordonnance </h1>
     <img class="separator" src='/cabinet/src/img/separator.png'>
 </div>
-<div class="d-flex flex-row col-12 justify-content-center pt-3" style="height:Calc(95vh - 178.2px);">
+<div class="d-flex flex-row col-12 justify-content-center pt-3" style="height:Calc(99vh - 138.2px);">
     
     <iframe name="iframeForm" class="col-xl-4 border-0" src="/cabinet/ordonnance/form?idPatient=<?= $_GET['idPatient']?>">
     

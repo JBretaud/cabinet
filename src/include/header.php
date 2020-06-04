@@ -4,13 +4,11 @@ include_once ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY
 if(!empty($_GET['path'])){
     $path=explode("/",$_GET['path']);
 }
-if ($path[0]!=("ordonnance"&&$path[0]!="praticien")&&$path[1]!="ordonnance"){
+if (($path[0]!="ordonnance"&&$path[0]!="praticien")&&(!isset($path[1])||$path[1]!="ordonnance")){
     if(isset($_SESSION['idOrdonnance'])) {
         unset($_SESSION['idOrdonnance']);
     }
 }
-
-
 ?>
 
 <?php if($path[0]!="ordonnance" || ($path[0]==="ordonnance" && $path[1]=="form")):?>
@@ -36,7 +34,7 @@ if($path[0]!="ordonnance"):?>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    
+    <?php if (!isset($path[1])||(isset($path[1])&&$path[1]!="ordonnance")):?>
         <nav class="navbar navbar-dark bg-primary mb-3">
             <div>
             <a href="/cabinet/accueil" class="navbar-brand home">&#8962;</a>
@@ -82,8 +80,9 @@ if($path[0]!="ordonnance"):?>
         </div>
         
         </nav>
-    
+        
         <?php
+        endif;
             if(isset ($path[1]) && $path[1]==="errorLogin"):
         ?>
         <div class="d-flex flex-row justify-content-center w-100 pop-up">
@@ -134,6 +133,12 @@ if($path[0]!="ordonnance"):?>
                 <div class="d-flex flex-row justify-content-center w-100  pop-up">
                     <div class="toast alert alert-success h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
                         Information de compte mis à jours.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="OrdonnanceCancel"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-danger h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Création d'ordonnance annulée.
                     </div>
                 </div>
                 <?php endif;?>

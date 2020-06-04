@@ -35,6 +35,9 @@
 /* ----------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------NAVBAR------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------- */
+body{
+    background-color: #eef2f6;
+}
 a{
     color:#0094eeff;
 }
@@ -178,7 +181,7 @@ h1{
     height:calc(100vh - 147.2px);
 }
 .backgroundTop{
-    background-color: #fff;
+    background-color: #eef2f6;
     height:25%;
     padding-top:10px;
     margin:0;
@@ -629,21 +632,21 @@ ul {
     background-color: rgb(240, 240, 240);
     padding:20px;
 }
-@keyframes fermeture{
+/* @keyframes fermeture{
     0%{
         height:82px;
     }
     100%{
         height:25px;
     }
-}
+} */
 .pop-up{
     height:82px;
-    animation-delay:2.2s;
+    /* animation-delay:2.2s;
     animation-name:fermeture;
     animation-duration:2s;
     animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
+    animation-fill-mode: forwards; */
     display:flex;
     flex-direction:row;
     align-items:center;

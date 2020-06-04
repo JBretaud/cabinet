@@ -69,6 +69,19 @@ methods: {
         
     }
     if(isset($_GET['alert'])||(isset ($path[1]) && $path[1]==="errorLogin")) require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toasts.php';
+    if((isset($_GET['patient'])&&!empty($_GET['patient']))&&(isset($_GET['praticien'])&&!empty($_GET['praticien']))){
+        $gets='';
+        foreach($_GET as $key=>$value){
+            
+            if(strpos($key, "Medicament") !== false && !empty($value['nom'])){
+                $gets.="&{$key}[nom]={$value['nom']}&{$key}[posologie]={$value['posologie']}";
+            }
+        }
+        $link = "
+        <script> window.open('/cabinet/ordonnance/dl?patient=".$_GET['patient']."&praticien=".$_GET['praticien'].$gets."', 'width=710,height=555,left=160,top=170') </script>";
+        echo "$link";
+    }
 ?>
+
     </body>
 </html>

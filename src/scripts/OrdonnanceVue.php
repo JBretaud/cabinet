@@ -9,7 +9,9 @@ el: '#frameForm',
 // Define properties and give them initial values.
 
 data: {
+    
     listeMed: {
+        
         <?php for($i=0 ; $i<$nbMed ; $i++){
             if(isset($Meds[$i])&&isset($Posologie[$i])){
                 $idMedicament="\"{$idMeds[$i]}\"";
@@ -25,6 +27,7 @@ data: {
              echo "nom: $nom, ";
              echo "posologie: $posologie},";
          }?>
+         
     },
     
 },

@@ -34,12 +34,12 @@
         <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
             <h1><?= $week->toString();?></h1>
             <?php if ($_SESSION['type']===3):?>
-                <form action="/cabinet/calendar/week" method="get">
+                <form class="d-flex flex-row align-items-center" action="/cabinet/calendar/week" method="get">
                     <input type="hidden" name="month" value="<?= $week->month ?>">
                     <input type="hidden" name="week" value="<?= $week->week ?>">
                     <input type="hidden" name="year" value="<?= $week->year ?>">
-                    <label>Agenda du docteur : </label>
-                    <select onchange="this.form.submit()" name="idPraticien">
+                    <label class="w-50">Agenda du docteur : </label>
+                    <select class="form-control w-50" onchange="this.form.submit()" name="idPraticien">
                         <option value="---">---</option>
                         <?php foreach($ListePraticiens as $praticien):?>
                             <option <?php if(isset($_GET['idPraticien'])&&$praticien->getIdPraticien()==$_GET['idPraticien']) echo "selected=\"selected\" ";?>value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>

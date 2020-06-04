@@ -37,11 +37,11 @@
         <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
             <h1><?= $month->toString();?></h1>
             <?php if ($_SESSION['type']===3):?>
-                <form action="/cabinet/calendar/month" method="get">
+                <form class="d-flex flex-row align-items-center" action="/cabinet/calendar/month" method="get">
                     <input type="hidden" name="month" value="<?= $month->month ?>">
                     <input type="hidden" name="week" value="<?= $month->week ?>">
-                    <label>Agenda du docteur : </label>
-                    <select onchange="this.form.submit()" name="idPraticien">
+                    <label class="w-50">Agenda du docteur : </label>
+                    <select class="form-control w-50" onchange="this.form.submit()" name="idPraticien">
                         <option value="---">---</option>
                         <?php foreach($ListePraticiens as $praticien):?>
                             <option <?php if(isset($_GET['idPraticien'])&&$praticien->getIdPraticien()==$_GET['idPraticien']) echo "selected=\"selected\" ";?>value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>
@@ -77,7 +77,8 @@
                         <?php if ($i===0):?> <div class="calendar__weekday"><?= $day; ?></div> <?php endif;?>
                         <div class="calendar__day"><?= $date->format('d') ?></div>
                     </div>
-                    <ul class="ListeRdv w-100">
+                    <ul class="ListeRdv w-100" <?= ($i===0) ? "style=\"margin-top:60px\"" : '' ;?>>
+                        
                         <?php if(!empty($listeRDV)):
                             foreach($listeRDV as $rdv):
                                 if($rdv->getDate()===$date->format('Y-m-d')):
