@@ -18,50 +18,43 @@
     $ligneOrdonnanceDAO=new ligneOrdonnanceDAO($pdo);
     $medDAO=new medDAO($pdo);
     $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-    $prochainRdv=$rdvDAO->getNextRdv($_GET['idPatient']);
-    if(!empty($prochainRdv)){
-        $date=new DateTime($prochainRdv->getStart());
-        $heure=$date->format('H:i');
-        $praticien=$praticienDAO->get($prochainRdv->getIdPraticien());
-        $praticienRdv=$praticien->getPrenom().' '.$praticien->getNom();
-    }
-    $ListeRdv=$rdvDAO->getPatient($_GET['idPatient']);
-    $ListeOrdonnance=$ordonnanceDAO->getPatient($_GET['idPatient']);
-    $ListePraticiens=$praticienDAO->getListe();
-    
-    $patient=$patientDAO->get($_GET['idPatient']);
+    if ($path[0]==='patient'){
+        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
+    }else{
+        $idPatient=$_GET['idPatient'];
+        $patient=$patientDAO->get($idPatient);
         $nom=strtoupper($patient->getNom());
         $prenom=ucfirst($patient->getPrenom());
-        $dateNaissance_Array=explode("-",$patient->getDateNaissance());
-        $dateNaissanceMeF=$dateNaissance_Array[2]."/".$dateNaissance_Array[1]."/".$dateNaissance_Array[0];
         $dateNaissance=$patient->getDateNaissance();
         $voie=$patient->getVoie();
         $cp=$patient->getcp();
         $ville=ucfirst($patient->getVille());
         $email=$patient->getEmail();
         $telephone=$patient->getTelephone();
-        $telephoneMeF=$telephone;
-        if($path[0]!='account'){
-            if (strlen($telephone)==10){
-                $pos=[8,6,4,2];
-                foreach($pos as $i){
-                    $telephoneMeF=substr_replace($telephoneMeF,".",$i,0);
-                }
-            }
-        }
-        $idPatient=$patient->getIdPatient();
+        $telephoneMeF=$telephone;        
         $idPraticien=$patient->getIdPraticien();
         $idUtilisateur=$patient->getIdUtilisateur();
         $emailf="<a href='mailto:".$email."'>".$email."</a>";
-        if(!empty($idPraticien)){
-            $praticien=$praticienDAO->get($idPraticien);
-        }
-        
-        if(!empty($idPraticien)){
-            $cheminImgProfil=$praticien->getCheminPhoto();
-        }else{
-            $cheminImgProfil="../src/img/profileVide.jpg";
-        }
+    }
+    if(!empty($idPraticien)){
+        $praticien=$praticienDAO->get($idPraticien);
+    }
+    if(!empty($idPraticien)){
+        $cheminImgProfil=$praticien->getCheminPhoto();
+    }else{
+        $cheminImgProfil="../src/img/profileVide.jpg";
+    }
+    $ListePraticiens=$praticienDAO->getListe();
+    $ListeRdv=$rdvDAO->getPatient($idPatient);
+    $ListeOrdonnance=$ordonnanceDAO->getPatient($idPatient);
+    $prochainRdv=$rdvDAO->getNextRdv($idPatient);
+    if(!empty($prochainRdv)){
+        $date=new DateTime($prochainRdv->getStart());
+        $heure=$date->format('H:i');
+        $praticien=$praticienDAO->get($prochainRdv->getIdPraticien());
+        $praticienRdv=$praticien->getPrenom().' '.$praticien->getNom();
+    }
+    
     ?>
     <div id="profile" class="container mt-5">
         <div class="row">
@@ -78,7 +71,7 @@
                 </div>
                 <div class="row">
                     <div class="content col-12">
-                        <form method="post" action="/cabinet/<?= $path[0] ?>/fiche/update?idPatient=<?=$idPatient?>">
+                        <form method="post" action="/cabinet/<?= $path[0] ?>/<?= $path[1] ?>/update<?=($path[0]==='patient') ? "" : "?idPatient={$idPatient}"?>">
                             <input type="hidden" name="nom" value="<?=$nom?>">
                             <input type="hidden" name="prenom" value="<?=$prenom?>">
                             <input type="hidden" name="dateNaissance" value="<?=$dateNaissance?>">
@@ -111,7 +104,7 @@
                 <div class="row">
                 
                     <div class="content col-12">
-                        <form method="post" action="/cabinet/<?= $path[0] ?>/fiche/update?idPatient=<?=$idPatient?>">
+                        <form method="post" action="/cabinet/<?= $path[0] ?>/<?= $path[1] ?>/update<?=($path[0]==='patient') ? "" : "?idPatient={$idPatient}"?>">
                             <input type="hidden" name='email' value="<?=$email?>">
                             <input type="hidden" name='telephone' value="<?=$telephone?>">
                             <input type="hidden" name="idPraticien" value="<?=$idPraticien?>">

@@ -81,7 +81,7 @@ methods: {
         <script> window.open('/cabinet/ordonnance/dl?patient=".$_GET['patient']."&praticien=".$_GET['praticien'].$gets."', 'width=710,height=555,left=160,top=170') </script>";
         echo "$link";
     }
-    if($path[1]==="fiche") require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toggleOrdonnance.php';
+    if($path[1]==="fiche"||$path[1]==="profil") require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toggleOrdonnance.php';
 ?>
 
     </body>
