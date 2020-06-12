@@ -10,8 +10,11 @@ $rdv=new Rdv($_POST);
 
 $rdvDAO=new rdvDAO($pdo);
 $rdvDAO->create($rdv);
-if($_SESSION['type']==3){
-    header('Location: /cabinet/admin/fiche?idPatient='.$_POST['idPatient']);
+if($_SESSION['type'] === 3){
+    header('Location: /cabinet/secretaire/fiche?idPatient='.$_POST['idPatient']);
+    exit();
+}elseif($_SESSION['type'] === 2){
+    header('Location: /cabinet/praticien/fiche?idPatient='.$_POST['idPatient']);
     exit();
 }elseif($_SESSION['type']==1){
     header('Location: /cabinet/patient/profil');

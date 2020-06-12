@@ -111,7 +111,7 @@
                                 }elseif($_SESSION['type']===3){
                                     $interlocuteur=$patientDAO->get($rdv->getIdPatient());
                                     $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
-                                    $address="/cabinet/admin/";
+                                    $address="/cabinet/secretaire/";
                                 }
                                 if($debut->format('N')==$k+1):
                                     $classeStart="h".$debut->format('H').$debut->format('i');

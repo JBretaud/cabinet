@@ -9,6 +9,7 @@ if(!empty($_POST['login'])){
 
 
     $user = $auth->login($_POST['login'],$_POST['pass']);
+    var_dump($user);
     if (!empty($user)){
         $_SESSION['login']=$user->getLogin();
         $_SESSION['type']=$user->getIdTypeUtilisateur();

@@ -4,7 +4,7 @@ if(!empty($_POST['login'])){
     $idDAO=new idDAO($pdo);
     $user=$idDAO->get(null,$_POST['login']);
     if(empty($user)){
-        $idDAO->create($_POST['login'],$_POST['pass'],1,$_POST['email']);
+        $idDAO->create($_POST['login'],password_hash($_POST['pass'],PASSWORD_DEFAULT),1,$_POST['email']);
         $user=$idDAO->get(null,$_POST['login']);
     }
     

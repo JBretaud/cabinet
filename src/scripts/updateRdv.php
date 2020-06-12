@@ -14,7 +14,7 @@
         }elseif($_SESSION['type']===2){
             $address="Location: /cabinet/praticien/rdv/modify?idRdv=".$rdv->getIdRdv()."&alert=deleteRdvFail";
         }elseif($_SESSION['type']===3){
-            $address="Location: /cabinet/admin/rdv/modify?idRdv=".$rdv->getIdRdv()."&alert=deleteRdvFail";
+            $address="Location: /cabinet/secretaire/rdv/modify?idRdv=".$rdv->getIdRdv()."&alert=deleteRdvFail";
         }
         header($address);
         exit();

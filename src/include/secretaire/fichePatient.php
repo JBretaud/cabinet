@@ -18,6 +18,7 @@
     $ligneOrdonnanceDAO=new ligneOrdonnanceDAO($pdo);
     $medDAO=new medDAO($pdo);
     $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    
     if ($path[0]==='patient'){
         require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
     }else{
@@ -67,6 +68,18 @@
                 <div class="row">
                     <div class="subtitle col-12">
                         <h2>Compte</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="content col-12">
+                        <div class="row d-flex flex-row justify-content-center pt-4 pb-2">
+                                <a href="/cabinet/account/mdpchange" class="w-75 btn btn-primary">MODIFIER LE MOT DE PASSE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="subtitle col-12">
+                        <h2>Contacts</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -166,7 +179,8 @@
                                     <div class="suivi col-12">
                                         <a v-if="!show_choixMed" @click.prevent="toggleChoixMed" class="btn btn-primary">MODIFIER LE MEDECIN REFERENT</a>
                                         <div v-if="show_choixMed">
-                                            <form action="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/fiche/update" method='post'>
+                                            
+                                            <form action="/cabinet/<?=$path[0]?>/<?= $path[1] ?>/update" method='post'>
                                                 <select name="idPraticien" class="form-control mb-2">
                                                     <?php foreach($ListePraticiens as $praticien):?>
                                                     <option value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>
@@ -192,7 +206,7 @@
                                 <p class="mb-1 text-center" style="font-size:1.2em">Ce patient ne bénéficie pas d'un suivi</p>
                                 <a v-if="!show_choixMed" @click.prevent="toggleChoixMed" class="btn btn-primary">Déclarer un médecin référent</a>
                                 <div v-if="show_choixMed">
-                                    <form action="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/fiche/update" method='post'>
+                                    <form action="/cabinet/<?= $path[0] ?>/<?= $path[1] ?>/update" method='post'>
                                         <select name="idPraticien" class="form-control mb-2">
                                             <?php foreach($ListePraticiens as $praticien):?>
                                             <option value=<?=$praticien->getIdPraticien()?>><?=$praticien->getPrenom().' '.$praticien->getNom()?></option>
@@ -292,11 +306,11 @@
                                             <?php if(!empty($prochainRdv)):?>
                                             <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                                                 <p>Le <?=$prochainRdv->getDate()." à ".$heure."<br>avec Dr.". $praticienRdv?></p>
-                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
+                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "secretaire"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
                                             </div>
                                             <?php else: ?>
                                                 <p class="text-center"><b>Pas de rendez-vous programmé</b></p>
-                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "admin"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
+                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "secretaire"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
                                                 
                                             <?php endif; ?>
                                             </div>

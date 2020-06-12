@@ -35,14 +35,21 @@ methods: {
             }else{
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'scriptVueEtape1.php';
             }
-        }elseif(isset($_SESSION['type']) && $path[0]=="admin"&&$_SESSION['type']===3||$path[0]==="praticien"&&$_SESSION['type']===2){
+        }elseif(isset($_SESSION['type']) && $path[0]=="secretaire"&&$_SESSION['type']===3||$path[0]==="praticien"&&$_SESSION['type']===2){
             if($path[1]=="recherche"&&$path[2]==="patient"){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueRecherche.php';
             }elseif($path[1]==="fiche"){
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueChoixMed.php';
             }
         }
-        if(isset($_SESSION) && $path[0]==='admin'&&$_SESSION['type']===3){
+        if(isset($_SESSION) && $path[0]==='secretaire'&&$_SESSION['type']===3){
+            if($path[1]==="rdv"){
+                if($path[2]==="new"){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueAfficheRdv.php';
+                }
+            }
+        }
+        if(isset($_SESSION) && $path[0]==='praticien'&&$_SESSION['type']===2){
             if($path[1]==="rdv"){
                 if($path[2]==="new"){
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'VueAfficheRdv.php';
@@ -81,7 +88,7 @@ methods: {
         <script> window.open('/cabinet/ordonnance/dl?patient=".$_GET['patient']."&praticien=".$_GET['praticien'].$gets."', 'width=710,height=555,left=160,top=170') </script>";
         echo "$link";
     }
-    if($path[1]==="fiche"||$path[1]==="profil") require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toggleOrdonnance.php';
+    if(isset($path[1])&&($path[1]==="fiche"||$path[1]==="profil")) require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'toggleOrdonnance.php';
 ?>
 
     </body>

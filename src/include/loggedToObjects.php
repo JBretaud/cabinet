@@ -36,5 +36,6 @@
         $prenom=ucfirst($praticien->getPrenom());
         $email=$praticien->getEmail();
         $cheminPhoto=$praticien->getCheminPhoto();
+        $idPraticien=$praticien->getIdPraticien();
     }
 ?>

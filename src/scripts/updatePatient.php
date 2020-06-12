@@ -5,8 +5,8 @@
         $adress='Location: /cabinet/accueil?alert=accountUpdated';
     }elseif($path[1]==='profil'&&$path[2]==='update'){
         $adress='Location: /cabinet/patient/profil?alert=accountUpdated';
-    }elseif($path[0]=='admin'&&$path[1]=='fiche'&&$path[2]=='update'){
-        $adress='Location: /cabinet/admin/fiche?idPatient='.$_POST['idPatient'].'&alert=accountUpdated';
+    }elseif($path[0]=='secretaire'&&$path[1]=='fiche'&&$path[2]=='update'){
+        $adress='Location: /cabinet/secretaire/fiche?idPatient='.$_POST['idPatient'].'&alert=accountUpdated';
     }elseif($path[0]=='praticien'&&$path[1]=='fiche'&&$path[2]=='update'){
         $adress='Location: /cabinet/praticien/fiche?idPatient='.$_POST['idPatient'].'&alert=accountUpdated';
     }

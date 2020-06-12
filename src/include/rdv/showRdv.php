@@ -36,8 +36,8 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
         $LienModif="/cabinet/praticien/rdv/modify?idRdv=".$rdv->getIdRdv();
         $LienAnnule="/cabinet/praticien/rdv/cancel?idRdv=".$rdv->getIdRdv();
     }elseif($_SESSION['type']===3){
-        $LienModif="/cabinet/admin/rdv/modify?idRdv=".$rdv->getIdRdv();
-        $LienAnnule="/cabinet/admin/rdv/cancel?idRdv=".$rdv->getIdRdv();
+        $LienModif="/cabinet/secretaire/rdv/modify?idRdv=".$rdv->getIdRdv();
+        $LienAnnule="/cabinet/secretaire/rdv/cancel?idRdv=".$rdv->getIdRdv();
     }
     
 

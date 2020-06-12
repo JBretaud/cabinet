@@ -3,14 +3,14 @@
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Rdv.php';
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'rdvDAO.php';
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'praticienDAO.php';
-    if($_SESSION['type']==1){
+    if($_SESSION['type']===1){
         $typeUser="patient";
-    }elseif($_SESSION['type']==2){
+    }elseif($_SESSION['type']===2){
         $typeUser="praticien";
-    }elseif($_SESSION['type']==3){
-        $typeUser="admin";
+    }elseif($_SESSION['type']===3){
+        $typeUser="secretaire";
     }
-    var_dump($typeUser);
+    
     try {
         $day = new Day($_GET['year'] ?? null,$_GET['month'] ?? null, $_GET['day'] ?? null);
     } catch (\Exception $e){
@@ -35,15 +35,18 @@
     $ListePraticiens=$praticienDAO->getListe();
     $ListeIdPraticiens=[];
     
-    if ($_SESSION['type']==3){
-        $adress="'/cabinet/admin/rdv/book?idPatient=";
-    }elseif($_SESSION['type']==1){
+    if ($_SESSION['type']===3){
+        $adress="'/cabinet/secretaire/rdv/book?idPatient=";
+    }elseif($_SESSION['type']===1){
         $adress="'/cabinet/patient/rdv/book?idPatient=";
+    }elseif($_SESSION['type']===2){
+        $adress="'/cabinet/praticien/rdv/book?idPatient=";
+        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
     }
 
     $rdvDAO=new rdvDAO($pdo);
-    
         if (!$day->pastDay()&&isset($idPraticien)){
+            
             $listeRdvReserves=$rdvDAO->getAllDayRdv($day,$idPraticien);
             $listeCreneauxReserves=[];
             foreach($listeRdvReserves as $creneau){
@@ -61,8 +64,6 @@
             $iDeb=0;
             $borneMoins=null;
             while($creneau->format('H')<19){
-                
-                
                 foreach($listeCreneauxReserves as $creneauReserve){
                     if ((clone $creneau)->modify("+20 minutes")>=$creneauReserve['debut'] && (clone $creneau)->modify("+20 minutes")<=$creneauReserve['fin']){
                         $creneau=$creneauReserve['fin'];
@@ -103,6 +104,7 @@
     
 ?>
 <div  class="w-100 d-flex flex-column align-items-center">
+    <?php if($_SESSION['type']!=2):?>
     <form class="my-4 d-flex flex-column justify-content-center align-items-center col-xl-3 col-lg-4 col-md-6 col-sm-8"  action="#" method="post">
             <label class="my-2" for="idPraticien"><h2>Praticien :</h2></label>
             <select class="form-control" onchange="this.form.submit()" name="idPraticien">
@@ -126,6 +128,7 @@
                 <?php endforeach;?>
             </select>
     </form>
+    <?php endif;?>
     <div class="mt-5 d-flex flex-row align-items-center justify-content-between col-xl-6 col-lg-7 col-md-10 col-sm-12">
         <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->previousDay()->getMonth()?>&year=<?= $day->previousDay()->getYear(); ?>&day=<?= $day->previousDay()->getDay(); ?>" class="btn btn-primary GreenSideArrows"><img src="/cabinet/src/img/left vert.png"></a>
         <h1><?=$day->toString()?></h1>
@@ -136,7 +139,7 @@
     <ul class="dispRdv d-flex flex-row justify-content-center align-items-center flex-nowrap col-xl-6 col-lg-8 col-md-10 col-sm-11">
         <div class="m-4" style="width:10%">
         <?php if (!empty ($borneMoins)): ?>
-            <a  href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->getMonth()?>&year=<?= $day->getYear(); ?>&day=<?= $day->getDay(); ?>&debut=<?=$borneMoins?>" class="BlueSideArrows justify-content-center d-flex flex-row align-items-center btn btn-primary"><img src="/cabinet/src/img/left bleu.png"></a>
+            <a  href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->getMonth()?>&year=<?= $day->getYear(); ?>&day=<?= $day->getDay(); ?>&debut=<?=$borneMoins?>" class="BlueSideArrows justify-content-center d-flex flex-row align-items-center btn btn-primary" style="height:68px;"><img src="/cabinet/src/img/left bleu.png"></a>
         <?php endif;?>
         </div>
         
@@ -161,7 +164,7 @@
             $bornePlus=$dateSplit[1];
             
             ?>
-            <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->getMonth()?>&year=<?= $day->getYear(); ?>&day=<?= $day->getDay();?>&debut=<?=$bornePlus?>" class="BlueSideArrows d-flex flex-row align-items-center justify-content-center btn btn-primary"><img src="/cabinet/src/img/right bleu.png"></a>
+            <a href="/cabinet/<?=$typeUser?>/rdv/new?<?php if(isset($idPraticien)) echo "idPraticien=".$idPraticien."&" ?>idPatient=<?=$_GET['idPatient']?>&month=<?= $day->getMonth()?>&year=<?= $day->getYear(); ?>&day=<?= $day->getDay();?>&debut=<?=$bornePlus?>" class="BlueSideArrows d-flex flex-row align-items-center justify-content-center btn btn-primary" style="height:68px;"><img src="/cabinet/src/img/right bleu.png"></a>
         <?php endif; ?>
         </div>
     </ul>

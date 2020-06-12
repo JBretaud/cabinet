@@ -20,11 +20,13 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
         $dateString = $date->format('d') . " " . $mois . " " . $date->format('Y');
 
         $buttonLabel="Mettre à Jour";
-
-        if ($_SESSION['type']==3){
-            $adress="/cabinet/admin/rdv/update";
-        }elseif ($_SESSION['type']==1){
+        if ($_SESSION['type'] === 3){
+            $adress="/cabinet/secretaire/rdv/update";
+        }elseif ($_SESSION['type'] === 1){
             $adress="/cabinet/patient/rdv/update";
+        }elseif($_SESSION['type'] === 2){
+            
+            $adress="/cabinet/praticien/rdv/update";
         }
     }else{
         $idPatient=$_GET['idPatient'];
@@ -38,9 +40,11 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
         $mois = $month->months[$date->format('n')-1];
         $dateString = $date->format('d') . " " . $mois . " " . $date->format('Y');
         if ($_SESSION['type']==3){
-            $adress="/cabinet/admin/rdv/finalize";
+            $adress="/cabinet/secretaire/rdv/finalize";
         }elseif ($_SESSION['type']==1){
             $adress="/cabinet/patient/rdv/finalize";
+        }elseif($_SESSION['type'] === 2){
+            $adress="/cabinet/praticien/rdv/finalize";
         }
         $buttonLabel="Réserver le créneau";
     }

@@ -20,7 +20,7 @@
     }else{
         require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
         $adresseTraite='/cabinet/account/modify/update';
-        if($_SESSION['type']==3)$adresseTraite='/cabinet/admin/fiche/update?idPatient='.$_GET['idPatient'];
+        if($_SESSION['type']==3)$adresseTraite='/cabinet/secretaire/fiche/update?idPatient='.$_GET['idPatient'];
         $Titre='Modification de compte';
         $soustitre="";
         if(isset($_GET['idPatient'])){

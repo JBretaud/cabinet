@@ -22,10 +22,12 @@
             } else{
                 $start= $month->getStartingDay();
             }
+
             $end=(clone $start)->modify("+".$month->getWeeks()." weeks");
             $end->modify("+6 days");
             $end->modify("+20 hours");
-            $listeRDV=null;
+            $listeRDV = null;
+
             if(isset($_GET['idPraticien'])&&$_GET['idPraticien']!="---"){
                 $personne=$praticienDAO->get($_GET['idPraticien']);
             }
@@ -58,7 +60,7 @@
                 }
                 if(isset($_GET['idPraticien'])) $lien.= '&idPraticien='.$_GET['idPraticien'];
             ?>
-            <a href=<?=$lien?>>Affichage Semaine</a>
+            <a href="<?=$lien?>">Affichage Semaine</a>
             <div>
                 <a href="/cabinet/calendar/month?&month=<?= $month->previousMonth()->month?>&year=<?= $month->previousMonth()->year; ?>" class="btn btn-primary">&lt</a>
                 <a href="/cabinet/calendar/month?&month=<?= $month->nextMonth()->month?>&year=<?= $month->nextMonth()->year; ?>" class="btn btn-primary">&gt</a>
@@ -95,7 +97,7 @@
                                 }elseif($_SESSION['type']===3){
                                     $interlocuteur=$patientDAO->get($rdv->getIdPatient());
                                     $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
-                                    $address="/cabinet/admin/";
+                                    $address="/cabinet/secretaire/";
                                 }
                                 
                                 ?>

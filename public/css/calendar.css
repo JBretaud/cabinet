@@ -505,9 +505,7 @@ ul {
     
     padding:50px 0px 0px 0px;
 }
-#recherche h1{
-    font-family:'code_boldregular';
-}
+
 #recherche li{
     text-decoration:none;
     background-color:rgb(129, 129, 129);
@@ -544,6 +542,7 @@ ul {
     margin:0px;
 }
 
+
 .dispRdv{
     list-style-type: none;
     height:calc(100vh - 169.2px);
@@ -564,7 +563,7 @@ ul {
     text-decoration:none;
     background-color:#fff;
     color:rgb(48, 186, 190);
-    height:70px;
+    height:auto;
 }
 .dispRdv a:hover{
     text-decoration:none;
@@ -600,16 +599,16 @@ ul {
     width:14px;
 }
 .BlueSideArrows:hover{
-    background-color:#eef2f6 !important;
+    background-color:#FFF !important;
     color:#eef2f6 !important;
     border-color:#eef2f6!important;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
 }
 .GreenSideArrows:hover{
-    background-color:#eef2f6 !important;
+    background-color:#FFF !important;
     color:#eef2f6 !important;
     border-color:#eef2f6!important;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
 }
 .GreenSideArrows img{
     width:28px;
@@ -648,7 +647,7 @@ ul {
     height:100%;
 }
 
-#profile .title{
+.title{
     background-color:rgb(48, 186, 190);
     padding:20px 40px 10px 40px;
     text-align:right;
@@ -656,7 +655,7 @@ ul {
 #profile .L{
     text-align:left !important;
 }
-#profile .subtitle{
+.subtitle{
     background-color: rgb(226, 226, 226);
     padding:20px 0 10px 10%;
 }
@@ -669,15 +668,13 @@ ul {
 }
 #profile h1{
     color:#FFF;
-    
-
 }
 #profile h3{
     font-family:'code_boldregular';
     font-size:1.3em;
     color:rgb(77, 77, 77);
 }
-#profile .frame{
+.frame{
     background-color:#FFF;
     overflow:hidden;
     border-radius: 10px;
@@ -689,7 +686,6 @@ ul {
     background-color: #eef2f6;
     overflow:hidden;
     border-radius: 10px;
-    
     margin-bottom: 50px;
     padding-bottom: 20px;
 }
@@ -718,4 +714,7 @@ ul {
 }
 #profile .titreOrdo{
 font-family:'code_boldregular'; color: rgb(99, 99, 99); font-size:1.1em;
+}
+#recherche h1{
+    color:#FFF;
 }

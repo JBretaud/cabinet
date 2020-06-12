@@ -8,15 +8,19 @@
     
         public function login($login,$pass){
             
-            $query = $this->pdo->prepare('SELECT * FROM utilisateurs WHERE login=:login AND pass=:pass');
+            $query = $this->pdo->prepare('SELECT * FROM utilisateurs WHERE login=:login');
             $query->execute(
             [
                 'login'=>$login,
-                'pass'=>$pass
             ]);
             $data = $query->fetch();
+            
             if(!empty($data)){
-                return new User($data);
+                if(password_verify($pass,$data['pass'])){
+                    return new User($data);
+                }else{
+                    return null;
+                }
             }else{
                 return null;
             }
