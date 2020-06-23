@@ -62,19 +62,35 @@
                     </fieldset>
                 </div>
             <?php endfor;?>
-            <div class="pt-4">
+            <div class=" d-flex flex-row justify-content-end pt-4">
+                <button id="boutAjoutMed" type="submit" class="btn btn-secondary" style="float:left">Ajouter Médicament</button>
                 <a href="/cabinet/ordonnance/cancel?idPatient=<?=$_GET['idPatient']?>" class="btn btn-danger" target="_parent">Annuler</a>
                 <button type="submit" name="apercu" class="btn btn-warning">Aperçu</button>
                 <button type="submit" name="dl" class="btn btn-primary">Télécharger et revenir à la fiche</button>
+                
             </div>
         </form>
-        <form class="w-100" method="get" action="/cabinet/ordonnance/form" target="iframeForm">
+        <form id="formMed" class="w-100" method="get" action="/cabinet/ordonnance/form" target="iframeForm" >
             <input type="hidden" value=<?= $_GET['idPatient']?> name="idPatient">
             <input type="hidden" value=<?=$nbMed+1?> name="nbMed">
             <?php for($i=0 ; $i<$nbMed ; $i++):?>
                 <input type="hidden" :value="listeMed[<?=$i?>]['posologie']" name="posologie[]">
                 <input type="hidden" :value="listeMed[<?=$i?>]['idMedicament']" name="idMeds[]">
+                
             <?php endfor;?>
-            <button id="boutAjoutMed" type="submit" class="btn btn-secondary" style="margin-top:-84px">Ajouter Médicament</button>
+            
         </form>
         </div>
+        <script>
+            
+            
+            document.addEventListener('DOMContentLoaded',function(){
+                frameForm = document.querySelector("#frameForm");
+                boutAjoutMed = document.querySelector("#boutAjoutMed");
+                boutAjoutMed.addEventListener('click',function (evt){
+                    evt.preventDefault();
+                    document.getElementById('formMed').submit();
+                })
+            })
+            
+        </script>

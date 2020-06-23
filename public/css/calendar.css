@@ -167,13 +167,13 @@ h1{
     color:rgb(48, 186, 190);
     font-family: 'code_lightregular';
 }
-.navbar a:hover{
+.menu a:hover{
     text-decoration:none;
     color:rgb(48, 186, 190);
 }
-.navbar a{
-    font-family:'code_boldregular';
-    color:rgb(207, 207, 207);
+.menu a{
+    font-family:'code_lightregular';
+    color:#fff !important;
     margin-right:5px;
 }
 .calendar__table{

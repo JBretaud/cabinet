@@ -3,7 +3,7 @@
 
 // A DOM element to mount our view model.
 
-el: '.navbar',
+el: '.menu',
 
 // Define properties and give them initial values.
 
@@ -25,6 +25,7 @@ methods: {
 }
 });
 </script>
+<?php require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'scriptNavBar.php';?>
 <?php
     if (isset($path)){
         if($path[0]=="account"&&$path[1]==="new"){

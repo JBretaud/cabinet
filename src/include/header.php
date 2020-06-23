@@ -3,10 +3,11 @@ session_start();
 include_once ("..".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."bdd".DIRECTORY_SEPARATOR."bdd.php");
 if(!empty($_GET['path'])){
     $path=explode("/",$_GET['path']);
-}
-if (($path[0]!="ordonnance"&&$path[0]!="praticien")&&(!isset($path[1])||$path[1]!="ordonnance")){
-    if(isset($_SESSION['idOrdonnance'])) {
-        unset($_SESSION['idOrdonnance']);
+
+    if (($path[0]!="ordonnance"&&$path[0]!="praticien")&&(!isset($path[1])||$path[1]!="ordonnance")){
+        if(isset($_SESSION['idOrdonnance'])) {
+            unset($_SESSION['idOrdonnance']);
+        }
     }
 }
 ?>
@@ -35,37 +36,42 @@ if($path[0]!="ordonnance"):?>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <?php if (!isset($path[1])||(isset($path[1])&&$path[1]!="ordonnance")):?>
-        <nav class="navbar navbar-dark bg-primary mb-3">
+        <nav id="navbar" class="menu navbar navbar-dark bg-primary mb-3">
+            
             <div>
-            <a href="/cabinet/accueil" class="navbar-brand home">&#8962;</a>
+            <a href="/cabinet/accueil" class="navbar-item home">&#8962;</a>
         <?php if(isset($_SESSION['login'])):?>
             <a <?php if($_SESSION['type']===1){echo "href='/cabinet/patient/profil'";}else{echo "href='#'";} ?> id="loggedName" class ="navbar-brand"><?=strtoupper($_SESSION['login'])?></a>
             <?php if($_SESSION['type']===3||$_SESSION['type']===2): ?>
-            <a href='<?=($_SESSION['type']===3) ? "/cabinet/secretaire/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-brand">RECHERCHE PATIENT</a>
+            <a href='<?=($_SESSION['type']===3) ? "/cabinet/secretaire/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-item">RECHERCHE PATIENT</a>
             <?php endif; ?>
             <?php if($_SESSION['type']===1): 
                 require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
                 ?>
-                <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-brand">PRENDRE RDV</a>
+                <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-item">PRENDRE RDV</a>
             <?php endif; ?>
-            <a href="/cabinet/calendar/month" class ="navbar-brand"><?= (isset($_SESSION['type'])&&$_SESSION['type']===1) ?  "MON CALENDRIER" : ($_SESSION['type']===2) ?  "MON AGENDA" :  "CALENDRIER" ;?></a>
+            <a href="/cabinet/calendar/month" class ="navbar-item"><?= (isset($_SESSION['type'])&&$_SESSION['type']===1) ?  "MON CALENDRIER" : ($_SESSION['type']===2) ?  "MON AGENDA" :  "CALENDRIER" ;?></a>
         <?php endif; ?>
         
             </div>
         <?php if(isset($_SESSION['login'])):?>
-            <a href="/cabinet/logout" class ="navbar-brand">LOGOUT</a>
+            
+            <a href="/cabinet/logout" class ="navbar-item">LOGOUT</a>
         <?php else: 
             if(!empty($path[0])):
                 if($path[0]!="account"): ?>
-            <div @click="toggleAuth" id="idButton" class ="navbar-brand">S'IDENTIFIER</div>
+            <a @click="toggleAuth" id="idButton" class ="navbar-item">S'IDENTIFIER</a>
         <?php   endif;
             else:?>
                 
-             <div @click="toggleAuth" id="idButton" class ="navbar-brand">S'IDENTIFIER</div>
+             <a @click="toggleAuth" id="idButton" class ="navbar-item">S'IDENTIFIER</a>
 
              <?php endif;
         endif;?>
-        <div v-if="show_auth" v-cloak id="authentification">
+            <button  id="boutonMenu" class="navbar-toggler" type="button" style="display:none">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div v-if="show_auth" v-cloak id="authentification" >
             <form class="d-inline-flex flex-column align-items-stretch" method="POST" action="/cabinet/login">
                 <input class="mt-5 m-2 p-2 form-control" type="text" name="login" required placeholder="Identifiant">
                 <input class="mb-4 m-2 p-2 form-control" type="password" name="pass" required placeholder="Mot de Passe">

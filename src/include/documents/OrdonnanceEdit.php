@@ -15,15 +15,23 @@
     $dateNaissance=$patient->getDateNaissance();
     
 ?>
+<div id="profile" class="frame container" style="background-color:#fff">
+    <div class="row">
+        <div class="title d-flex flex-column align-items-center w-100 py-3" >
+            <h1> Ordonnance </h1>
+        </div>
+    </div>
 
-<div class="d-flex flex-column align-items-center w-100 py-3" style="background-color:#d3f4f5;">
-    <h1> Ordonnance </h1>
-    <img class="separator" src='/cabinet/src/img/separator.png'>
+    <div class="row pt-3" style="min-height:Calc(92vh - 107.2px);">
+        
+        <iframe name="iframeForm" class="col-xl-6 border-0" src="/cabinet/ordonnance/form?idPatient=<?= $_GET['idPatient']?>" frameborder="0" scrolling="no" onload="resizeIframe(this)">
+        
+        </iframe>
+        <iframe name="myiframe" class="col-xl-6 border-0" src="/cabinet/ordonnance/display?idPatient=<?= $_GET['idPatient']?>" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe>
+    </div>
 </div>
-<div class="d-flex flex-row col-12 justify-content-center pt-3" style="height:Calc(99vh - 138.2px);">
-    
-    <iframe name="iframeForm" class="col-xl-4 border-0" src="/cabinet/ordonnance/form?idPatient=<?= $_GET['idPatient']?>">
-    
-    </iframe>
-    <iframe name="myiframe" class="col-xl-6 border-0" src="/cabinet/ordonnance/display?idPatient=<?= $_GET['idPatient']?>"></iframe>
-</div>
+<script>
+    function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+    }
+</script>
