@@ -72,8 +72,6 @@
             }
         }
         public function update($User){
-            
-            
             $requete="idUtilisateur=".$User->getIdUtilisateur().", login='".$User->getLogin()."', pass='".$User->getPass()."', idTypeUtilisateur=".$User->getIdTypeUtilisateur()."";
             if(!empty($User->getEmail()))  $requete.=", email=\"".$User->getEmail()."\"";
             if(!empty($User->getIdPatient())){
@@ -86,6 +84,13 @@
             echo '<br>'.$requete;
             $query = $this->pdo->prepare($requete);
             $query->execute();
+        }
+
+        public function getByType($idTypeUtilisateur){
+            $query = $this->pdo->prepare("SELECT * FROM utilisateur WHERE idTypeUtilisateur = :idTypeUtilisteur");
+            $query->execute([
+                "idTypeUtilisateur" => $idTypeUtilisateur,
+            ]);
         }
     }
 ?>

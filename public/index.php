@@ -75,6 +75,7 @@ if(isset($path)){
                     
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
                 }
+            
             }else{
                 
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
@@ -113,6 +114,19 @@ if(isset($path)){
                     
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
                 }
+            }elseif($path[1]==='rdvperso'){
+                if ($path[2] === 'new')
+                {
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'rdv'.DIRECTORY_SEPARATOR.'formRdvPerso.php';
+                }elseif($path[2] === 'create'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'createRdvPerso.php';
+                }
+            }elseif ($path[1] === 'rdvserviceexterne'){
+                
+                if ($path[2] === 'new'){
+                    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'rdvServiceNew.php';
+                }
+                
             }else{
                 
                 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'error404.php';
@@ -149,6 +163,16 @@ if(isset($path)){
                     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'secretaire'.DIRECTORY_SEPARATOR.'fichePatient.php';
                 }
                 
+            }
+        }elseif($path[0] === 'admin' && $_SESSION['type'] === 4){
+            if(isset($path[1])){
+                if ($path[1] === 'accounts'){
+                    if(isset($path[2])){
+                        if($path[2] === 'display'){
+                            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'displayAccounts.php';
+                        }
+                    }
+                }
             }
         }
     

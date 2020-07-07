@@ -1,4 +1,5 @@
 <?php
+    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Rdv.php';
     class rdvDAO{
         private $pdo;
 
@@ -7,13 +8,15 @@
         }
 
         public function create(?Rdv $rdv){
-            $query = $this->pdo->prepare('INSERT INTO rdv(idPatient, idPraticien, start, Description,Date)VALUES(:idPatient, :idPraticien, :start, :Description, :Date);');
+            $query = $this->pdo->prepare('INSERT INTO rdv(idPatient, idPraticien, start, duree, Description,Date,label)VALUES(:idPatient, :idPraticien, :start, :duree, :Description, :Date,:label);');
             $query->execute([
-                'idPatient'=>$rdv->getIdPatient(),
-                'idPraticien'=>$rdv->getIdPraticien(),
-                'start'=>$rdv->getStart(),
-                'Description'=>$rdv->getDescription(),
-                'Date'=>$rdv->getDate()
+                'idPatient' => $rdv->getIdPatient(),
+                'idPraticien' => $rdv->getIdPraticien(),
+                'start' => $rdv->getStart(),
+                'Description' => $rdv->getDescription(),
+                'Date' => $rdv->getDate(),
+                'label' => $rdv->getLabel(),
+                'duree' => $rdv->getDuree(),
             ]);
         }
         /**
@@ -56,6 +59,7 @@
                 'duree'=>$rdv->getDuree(),
                 'Date'=>$rdv->getDate(),
                 'start'=>$rdv->getStart(),
+                'label' => $rdv->getLabel(),
             ]);
         }
 

@@ -88,13 +88,10 @@ class Day{
         return new DateTime("{$this->year}-{$this->month}-{$this->day} 09:00:00");
     }
     public function pastDay() :bool{
-        $date=new DateTime("{$this->year}-{$this->month}-{$this->day}");
+        $date=new DateTime("{$this->year}-{$this->month}-{$this->day} 23:59:59");
         $now=new DateTime();
-        if($date->format('Y')<$now->format('Y')){
-            return true;
-        }elseif($date->format('m')<$now->format('m')){
-            return true;
-        }elseif($date->format('j')<$now->format('j')){
+        
+        if($date < $now) {
             return true;
         }else{
             return false;

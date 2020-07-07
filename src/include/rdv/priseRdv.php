@@ -45,10 +45,12 @@
     }
 
     $rdvDAO=new rdvDAO($pdo);
+    
         if (!$day->pastDay()&&isset($idPraticien)){
             
-            $listeRdvReserves=$rdvDAO->getAllDayRdv($day,$idPraticien);
-            $listeCreneauxReserves=[];
+            $listeRdvReserves = $rdvDAO->getAllDayRdv($day,$idPraticien);
+            $listeCreneauxReserves = [];
+            
             foreach($listeRdvReserves as $creneau){
                 $debut=new DateTime($creneau->getStart());
                 array_push($listeCreneauxReserves,[
@@ -62,7 +64,7 @@
             $listeCreneaux=[];
             $i=0;
             $iDeb=0;
-            $borneMoins=null;
+            $borneMoins = null;
             while($creneau->format('H')<19){
                 foreach($listeCreneauxReserves as $creneauReserve){
                     if ((clone $creneau)->modify("+20 minutes")>=$creneauReserve['debut'] && (clone $creneau)->modify("+20 minutes")<=$creneauReserve['fin']){

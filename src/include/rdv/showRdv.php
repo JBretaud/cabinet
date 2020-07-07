@@ -57,7 +57,8 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
 
             <?php endif; ?>
 
-            <?php if ($_SESSION['type']===3||$_SESSION['type']===2):?>
+            <?php if ($rdv->getLabel() === null && ($_SESSION['type'] === 3 || $_SESSION['type'] === 2) ):?>
+            
             <div class="mt-5 d-flex flex-row align-items-end">
                 <?php if($_SESSION['type']===3) echo "Patient : ";?>
                 <h3 class="mb-0 ml-2"> M. <?=ucfirst($patient->getPrenom())." ".strtoupper($patient->getNom())?></h3>
@@ -70,6 +71,11 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
                 <label class="ml-3 mb-0"> à </label>
                 <div class="border-0 date hour" ><?= $date->format('H:i') ?></div>
             </div>
+            <?php if ($rdv->getLabel() !== null): ?>
+            <div class="form-group d-flex flex-column align-items-center w-100">
+                <h2><?=$rdv->getLabel()?></h2>
+            </div>
+            <?php endif; ?>
             <div class="form-group d-flex flex-column align-items-center w-100">
                 <label><h3>- Motif du rendez-vous - </h3></label>
                 <div class="w-50 description"><?=$description?></div>

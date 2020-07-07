@@ -7,6 +7,7 @@ class Rdv{
     private $duree;
     private $description;
     private $date;
+    private $label;
     /**
     * param $attributes
     *@throws Exception;
@@ -64,6 +65,9 @@ class Rdv{
     public function getDate(){
         return $this->date;
     }
+    public function getLabel(){
+        return $this->label;
+    }
 
     public function setIdRdv($idRdv){
        $this->idRdv=$idRdv;
@@ -79,9 +83,9 @@ class Rdv{
     }
     public function setDuree($duree){
         if(empty($duree)){
-            $this->duree=20;
+            $this->duree = 20;
         }else{
-            $this->duree=$duree;
+            $this->duree = $duree;
         }
     }
     public function setDescription($description){
@@ -89,6 +93,9 @@ class Rdv{
     }
     public function setDate($date){
         $this->date=$date;
+    }
+    public function setLabel($label){
+        $this->label=$label;
     }
 
     

@@ -86,19 +86,26 @@
                                 if($rdv->getDate()===$date->format('Y-m-d')):
                                 $heure=new DateTime($rdv->getStart());
                                 $heure=$heure->format("H:i");
-                                if($_SESSION['type']===1){
-                                    $interlocuteur=$praticienDAO->get($rdv->getIdPraticien());
-                                    $interlocuteur= "Dr. ".strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
-                                    $address="/cabinet/patient/";
-                                }elseif($_SESSION['type']===2){
-                                    $interlocuteur=$patientDAO->get($rdv->getIdPatient());
-                                    $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
-                                    $address="/cabinet/praticien/";
-                                }elseif($_SESSION['type']===3){
-                                    $interlocuteur=$patientDAO->get($rdv->getIdPatient());
-                                    $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
-                                    $address="/cabinet/secretaire/";
+                                if ($rdv->getLabel()=== null){
+                                    if($_SESSION['type']===1){
+                                        $interlocuteur=$praticienDAO->get($rdv->getIdPraticien());
+                                        $interlocuteur= "Dr. ".strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
+                                        $address="/cabinet/patient/";
+                                    }elseif($_SESSION['type']===2){
+                                        $interlocuteur=$patientDAO->get($rdv->getIdPatient());
+                                        $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
+                                        $address="/cabinet/praticien/";
+                                    }elseif($_SESSION['type']===3){
+                                        $interlocuteur=$patientDAO->get($rdv->getIdPatient());
+                                        $interlocuteur=strtoupper($interlocuteur->getNom())." ".ucfirst($interlocuteur->getPrenom());
+                                        $address="/cabinet/secretaire/";
+                                    }
+                                }else{
+                                    
+                                    $interlocuteur=$rdv->getLabel();
+                                    $address="/cabinet/".(($_SESSION['type']===2) ? 'praticien/' : 'secretaire/' );
                                 }
+                                
                                 
                                 ?>
                             <li>
@@ -113,5 +120,8 @@
             </div>
         <?php endfor; ?>
         </div>
-        <?php $month->getWeeks();?>
+        <?php if($_SESSION['type'] === 2) : ?>
+            <a class = "d-flex align-items-center justify-content-center rounded-circle position-absolute" href="/cabinet/praticien/rdvperso/new" style = "z-index:10; top:98%; left:98%; transform:translate(-100%,-100%); height:50px; width:50px; background-color:rgb(48, 186, 190); color:#fff; text-decoration:none; font-size:1.5em"><span style="margin-top:-5px">+</span></a>
+        <?php endif; ?>
+      
         <script src="" async defer></script>

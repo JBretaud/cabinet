@@ -41,9 +41,14 @@ if($path[0]!="ordonnance"):?>
             <div>
             <a href="/cabinet/accueil" class="navbar-item home">&#8962;</a>
         <?php if(isset($_SESSION['login'])):?>
+
             <a <?php if($_SESSION['type']===1){echo "href='/cabinet/patient/profil'";}else{echo "href='#'";} ?> id="loggedName" class ="navbar-brand"><?=strtoupper($_SESSION['login'])?></a>
-            <?php if($_SESSION['type']===3||$_SESSION['type']===2): ?>
-            <a href='<?=($_SESSION['type']===3) ? "/cabinet/secretaire/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-item">RECHERCHE PATIENT</a>
+
+            <?php if($_SESSION['type'] === 3||$_SESSION['type']===2): ?>
+                <a href='<?=($_SESSION['type']===3) ? "/cabinet/secretaire/recherche/patient" : "/cabinet/praticien/recherche/patient"?>' class ="navbar-item">RECHERCHE PATIENT</a>
+            <?php endif; ?>
+            <?php if($_SESSION['type'] === 4):?>
+                <a href="/cabinet/admin/accounts/display" class ="navbar-item">Comptes</a>
             <?php endif; ?>
             <?php if($_SESSION['type']===1): 
                 require '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';

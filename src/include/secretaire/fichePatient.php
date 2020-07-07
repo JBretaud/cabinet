@@ -11,31 +11,36 @@
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'ligneOrdonnanceDAO.php';
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Med.php';
     require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'medDAO.php';
+    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'demandeRdvDAO.php';
+    require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'DAO'.DIRECTORY_SEPARATOR.'serviceExterneDAO.php';
     $patientDAO=new patientDAO($pdo);
     $praticienDAO=new praticienDAO($pdo);
     $rdvDAO=new rdvDAO($pdo);
     $ordonnanceDAO=new ordonnanceDAO($pdo);
     $ligneOrdonnanceDAO=new ligneOrdonnanceDAO($pdo);
     $medDAO=new medDAO($pdo);
+    $demandeRdvDAO=new demandeRdvDAO($pdo);
+    $serviceExterneDAO=new serviceExterneDAO($pdo);
     $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     
     if ($path[0]==='patient'){
         require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'loggedToObjects.php';
     }else{
-        $idPatient=$_GET['idPatient'];
-        $patient=$patientDAO->get($idPatient);
-        $nom=strtoupper($patient->getNom());
-        $prenom=ucfirst($patient->getPrenom());
-        $dateNaissance=$patient->getDateNaissance();
-        $voie=$patient->getVoie();
-        $cp=$patient->getcp();
-        $ville=ucfirst($patient->getVille());
-        $email=$patient->getEmail();
-        $telephone=$patient->getTelephone();
-        $telephoneMeF=$telephone;        
-        $idPraticien=$patient->getIdPraticien();
-        $idUtilisateur=$patient->getIdUtilisateur();
-        $emailf="<a href='mailto:".$email."'>".$email."</a>";
+        $idPatient = $_GET['idPatient'];
+        $patient = $patientDAO->get($idPatient);
+        $nom = strtoupper($patient->getNom());
+        $prenom = ucfirst($patient->getPrenom());
+        $dateNaissance = $patient->getDateNaissance();
+        $voie = $patient->getVoie();
+        $cp = $patient->getcp();
+        $ville = ucfirst($patient->getVille());
+        $email = $patient->getEmail();
+        $telephone = $patient->getTelephone();
+        $telephoneMeF = $telephone;        
+        $idPraticien = $patient->getIdPraticien();
+        $idUtilisateur = $patient->getIdUtilisateur();
+        $emailf = "<a href='mailto:".$email."'>".$email."</a>";
+        
     }
     if(!empty($idPraticien)){
         $praticien=$praticienDAO->get($idPraticien);
@@ -45,6 +50,7 @@
     }else{
         $cheminImgProfil="../src/img/profileVide.jpg";
     }
+    $listeRdvServices = $demandeRdvDAO->getPatient($idPatient);
     $ListePraticiens=$praticienDAO->getListe();
     $ListeRdv=$rdvDAO->getPatient($idPatient);
     $ListeOrdonnance=$ordonnanceDAO->getPatient($idPatient);
@@ -156,7 +162,7 @@
             </div>
         </div>
         <div class="row d-flex flex-row justify-content-around">
-            <div class="col-xl-5">
+            <div class="col-xl-5 d-flex flex-column justify-content-between">
                 <div class="row">
                     <div class="col-12 frame">
                         <div class="row">
@@ -306,11 +312,11 @@
                                             <?php if(!empty($prochainRdv)):?>
                                             <div class="col-12 pt-5 d-flex flex-column justify-content-start align-items-center">
                                                 <p>Le <?=$prochainRdv->getDate()." à ".$heure."<br>avec Dr.". $praticienRdv?></p>
-                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "secretaire"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
+                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0] === "praticien" && $_SESSION['type'] === 2) ? "praticien" : (($path[0] === "secretaire" && $_SESSION['type'] === 3) ? "secretaire" : "patient")?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
                                             </div>
                                             <?php else: ?>
                                                 <p class="text-center"><b>Pas de rendez-vous programmé</b></p>
-                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0]==="praticien" && $_SESSION['type']===2) ? "praticien" : "secretaire"?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
+                                                <a class="btn btn-primary w-100" href="/cabinet/<?= ($path[0] === "praticien" && $_SESSION['type'] === 2) ? "praticien" : (($path[0] === "secretaire" && $_SESSION['type'] === 3) ? "secretaire" : "patient")?>/rdv/new?idPatient=<?=$idPatient?>">PRENDRE RENDEZ-VOUS</a>
                                                 
                                             <?php endif; ?>
                                             </div>
@@ -329,26 +335,44 @@
                                             </div>
                                         </div>
                                     
-                                <?php for($i=0;$i<3;$i++):
-                                    if(isset($ListeRdv[$i])):
-                                        $StartArray=explode(' ',$ListeRdv[$i]->getStart());
+                                <?php 
+                                    $ShortListeRdv = [];
+                                    $i = 0;
+                                    
+                                
+                                       do{
+                                            
+                                        $date = new DateTime($ListeRdv[$i]->getStart());
+                                         if(isset($ListeRdv[$i]) && $date < new DateTime()){
+                                            
+                                             array_push($ShortListeRdv, $ListeRdv[$i]);
+                                         }
+                                         $i++;
+                                        
+                                       }while(count($ShortListeRdv) < 3 && isset($ListeRdv[$i]));
+                                       
+
+
+                                     foreach($ShortListeRdv as $rdv):
+                                    if(isset($rdv)):
+                                        $StartArray=explode(' ',$rdv->getStart());
                                         $DateArray=explode('-',$StartArray[0]);
                                         $HourArray=explode(':',$StartArray[1]);
                                         $Hour=$HourArray[0]."h".$HourArray[1];
-                                        $DateRdv=$DateArray[2]." ".$months[intval($DateArray[1])]." ".$DateArray[0];
-                                        $pratRdv=$praticienDAO->get($ListeRdv[$i]->getIdPraticien());
-                                        ?>
-                                        <div class="row d-flex flex-row justify-content-center">
-                                            <div class="col-11 " style="padding-bottom:0">
-                                                <div class="row">
-                                                    <div class="subsubtitle mt-2 col-12">
-                                                        <p style="font-size:1.1em;"><b><?=$DateRdv." - ".$Hour."</b> : Dr. ".$pratRdv->getNom()." ".$pratRdv->getPrenom()?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endif;?>
-                                <?php endfor; ?>
+                                        $DateRdv=$DateArray[2]." ".$months[intval($DateArray[1])-1]." ".$DateArray[0];
+                                        $pratRdv=$praticienDAO->get($rdv->getIdPraticien());
+                                         ?>
+                                         <div class="row d-flex flex-row justify-content-center">
+                                             <div class="col-11 " style="padding-bottom:0">
+                                                 <div class="row">
+                                                     <div class="subsubtitle mt-2 col-12">
+                                                         <p style="font-size:1.1em;"><b><?=$DateRdv." - ".$Hour."</b> : Dr. ".$pratRdv->getNom()." ".$pratRdv->getPrenom()?></p>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     <?php endif;?>
+                                     <?php endforeach; ?>
                                     <div class="row d-flex flex-row justify-content-center">
                                         <div class="col-11 mb-2" style="padding-bottom:0">
                                             <div class="row">
@@ -363,6 +387,85 @@
                     </div>
                 </div>  
             </div>
+        </div>
+        <?php if($_SESSION['type'] === 2 || !empty($listeRdvServices)): ?>
+        <div class="row d-flex flex-row justify-content-center">
+            <div class="frame col-xl-7">
+                <div class="row">
+                    <div class="title L col-12 mb-4">
+                        <h1>Services Externes</h1>
+                    </div>
+                </div>
+           
+                
+                <?php 
+                
+                $listeServices = $serviceExterneDAO->getAllServices()?>
+               
+                <div class="content row d-flex flex-row justify-content-around">
+                    <?php if($_SESSION['type'] === 2): ?>
+                    <div class=" subframe p-0 <?= (empty($listeRdvServices)) ? "col-12" : "col-md-5"?>">
+                        <div class="subtitle"><h2>NOUVEAU RDV</h2></div>
+                        <form method="POST" action="/cabinet/praticien/rdvserviceexterne/new" class=" w-100 p-2">
+                            
+                            <input type="hidden" name='idPraticien' value="<?=$idPraticien?>">
+                            <input type="hidden" name='idPatient' value="<?=$idPatient?>">
+                            <div class="form-group w-100">
+                                <label for="appt">Heure :</label>
+                                <input class="form-control w-100" type="time" id="appt" name="Time" min="09:00" max="18:00">
+                            </div>
+                            <div class="form-group w-100">
+                                <label for="date">Date :</label>
+                                <input type="date" name="date" class="form-control" required>
+                            </div>
+                            <div class="form-group w-100">
+                                <label for="idService">Service :</label>
+                                <select name="idService" class="form-control" required>
+                                    <?php
+                                    foreach($listeServices as $service):?>
+                                        <option value="<?=$service->getIdService()?>"><?=$service->getNom()?></option>;
+                                    <?php endforeach;?>
+                                
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100 my-2" type="submit">PRENDRE RENDEZ-VOUS</button>
+                        </form>
+
+                    </div>
+                    <?php endif; 
+                    
+                        ?>
+                    <div class="subframe p-0 <?= (empty($listeRdvServices) || (!empty($listeRdvServices)&& $_SESSION['type'] !== 2)) ? "col-12" : "col-md-5"?>">
+                        
+                        <div class="w-100 subtitle pr-3"><h2 class="w-100 text-right">LISTE RDV</h2></div>
+                        <?php 
+                            $i=0;
+                            foreach($listeRdvServices as $RdvService): 
+                            if($i === 2) break;
+                            $dateTS = new DateTime();
+                            $dateTS->setTimestamp($RdvService->getDate());
+                            $date = $dateTS->format('d') . " " . $months[intval($dateTS->format('m'))] . " " . $dateTS->format('Y');
+                            $Service = $serviceExterneDAO->getService($RdvService->getIdService());
+                            $i+=1;
+                            ?>
+                            <div class="d-flex flex-column justify-content-between align-items-end rounded pr-3 pt-2 my-2" style="background-color:#eef2f6">
+                                <h3><?= $date?> à <?= $dateTS->format('H:i') ?></h3>
+                                
+                                <h4><?= $Service->getNom()?></h4>
+                                <a href="mailto:<?php $Service->getEmail()?>"><?=$Service->getEmail()?> </a>
+                                
+                        </div>
+                        <?php endforeach;?>
+                    </div>
+                    
+                </div>
+                
+                
+            
+          
+            </div>
+            <?php endif;?>
+            
         </div>
 
 

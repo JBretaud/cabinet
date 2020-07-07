@@ -179,6 +179,7 @@ h1{
 .calendar__table{
     width:100%;
     height:calc(100vh - 147.2px);
+    min-height:740px;
 }
 .backgroundTop{
     background-color: #eef2f6;
@@ -248,6 +249,7 @@ h1{
     width:94%;
     min-width:1286px;
     height:calc(100vh - 128px);
+    min-height:740px;
 }
 .calendar__weektable td{
     padding: 10px;

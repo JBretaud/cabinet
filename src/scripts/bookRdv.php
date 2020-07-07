@@ -8,8 +8,9 @@ $start=str_replace("/"," ",$_POST['start']);
 echo $start;
 $rdv=new Rdv($_POST);
 
-$rdvDAO=new rdvDAO($pdo);
+$rdvDAO = new rdvDAO($pdo);
 $rdvDAO->create($rdv);
+
 if($_SESSION['type'] === 3){
     header('Location: /cabinet/secretaire/fiche?idPatient='.$_POST['idPatient']);
     exit();
