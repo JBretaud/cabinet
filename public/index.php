@@ -170,7 +170,14 @@ if(isset($path)){
                     if(isset($path[2])){
                         if($path[2] === 'display'){
                             require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'include'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR.'displayAccounts.php';
+                        }elseif($path[2] === 'delete'){
+                            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'deleteUser.php';
+                        }elseif($path[2] === 'create'){
+                            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'createUser.php';
+                        }elseif($path[2] === 'newPraticien'){
+                            require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'createPraticien.php';
                         }
+
                     }
                 }
             }

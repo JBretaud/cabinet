@@ -1,4 +1,5 @@
 <?php
+require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Praticien.php';
 class praticienDAO{
 
     private $pdo;
@@ -8,7 +9,7 @@ class praticienDAO{
     }
 
     public function get(?int $id){
-        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Praticien.php';
+        
         $query=$this->pdo->prepare('SELECT * FROM praticiens WHERE idPraticien=:idPraticien;');
         $query->execute(['idPraticien'=>$id]);
         $data=$query->fetch();
@@ -20,7 +21,7 @@ class praticienDAO{
         }
     }
     public function getListe(){
-        require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Praticien.php';
+        
         $query=$this->pdo->prepare('SELECT * FROM praticiens');
         $query->execute();
         $data=$query->fetchAll();
@@ -29,6 +30,24 @@ class praticienDAO{
             array_push($ListePraticiens,new Praticien($praticien));
         }
         return $ListePraticiens;
+    }
+
+    public function delete($idPraticien){
+        $query = $this->pdo->prepare("DELETE FROM praticiens WHERE idPraticien = :idPraticien");
+        $query->execute([
+            'idPraticien'=>$idPraticien,
+        ]);
+    }
+    public function create(Praticien $Praticien){
+        var_dump($Praticien);
+        $query = $this->pdo->prepare("INSERT INTO praticiens (nom,prenom,email,idUtilisateur,cheminPhoto) VALUES (:nom,:prenom,:email,:idUtilisateur,:cheminPhoto)");
+        $query->execute([
+            'nom'=>$Praticien->getNom(),
+            'prenom'=>$Praticien->getPrenom(),
+            'email'=>$Praticien->getEmail(),
+            'idUtilisateur'=>$Praticien->getIdUtilisateur(),
+            'cheminPhoto'=>$Praticien->getCheminPhoto(),
+        ]);
     }
 
 }

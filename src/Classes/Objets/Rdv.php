@@ -15,8 +15,8 @@ class Rdv{
     public function __construct(?array $attributes){
     try{
         $this->hydrate($attributes);
-        if (empty($this->duree)){
-            $this->duree==20;
+        if (is_null($this->duree)){
+            $this->duree = 20;
         }
     }catch(\Exception $e){
         throw $e;

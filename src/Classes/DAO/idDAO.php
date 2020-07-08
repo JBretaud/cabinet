@@ -81,15 +81,27 @@
                 $requete.=", idPraticien=".$User->getIdPraticien();
             }
             $requete='UPDATE utilisateurs SET '.$requete.' WHERE idUtilisateur='.$User->getIdUtilisateur().';';
-            echo '<br>'.$requete;
+            // echo '<br>'.$requete;
             $query = $this->pdo->prepare($requete);
             $query->execute();
         }
 
         public function getByType($idTypeUtilisateur){
-            $query = $this->pdo->prepare("SELECT * FROM utilisateur WHERE idTypeUtilisateur = :idTypeUtilisteur");
+            $query = $this->pdo->prepare("SELECT * FROM utilisateurs WHERE idTypeUtilisateur = :idTypeUtilisateur");
             $query->execute([
                 "idTypeUtilisateur" => $idTypeUtilisateur,
+            ]);
+            $data = $query->fetchAll();
+            $result = [];
+            foreach($data as $attributes){
+                array_push($result, new User($attributes));
+            }
+            return $result;
+        }
+        public function delete($idUtilisateur){
+            $query = $this->pdo->prepare("DELETE FROM utilisateurs WHERE idUtilisateur = :idUtilisateur");
+            $query->execute([
+                'idUtilisateur'=>$idUtilisateur,
             ]);
         }
     }

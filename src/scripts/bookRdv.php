@@ -4,9 +4,10 @@ require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECT
 require_once '..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Classes'.DIRECTORY_SEPARATOR.'Objets'.DIRECTORY_SEPARATOR.'Rdv.php';
 
 echo $_POST['start'];
-$start=str_replace("/"," ",$_POST['start']);
+$start = str_replace("/"," ",$_POST['start']);
 echo $start;
-$rdv=new Rdv($_POST);
+$rdv = new Rdv($_POST);
+
 
 $rdvDAO = new rdvDAO($pdo);
 $rdvDAO->create($rdv);

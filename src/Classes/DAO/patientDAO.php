@@ -77,7 +77,12 @@ class patientDAO{
         $query = $this->pdo->prepare('SELECT idPatient, nom, prenom, dateNaissance, voie, ville, cp FROM clients');
         $query->execute();
         return $query->fetchAll();
-        
+    }
+    public function delete($idPatient){
+        $query = $this->pdo->prepare("DELETE FROM clients WHERE idPatient = :idPatient");
+        $query->execute([
+            'idPraticien'=>$idPatient,
+        ]);
     }
 
 }

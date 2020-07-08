@@ -720,3 +720,8 @@ font-family:'code_boldregular'; color: rgb(99, 99, 99); font-size:1.1em;
 #recherche h1{
     color:#FFF;
 }
+.content th, .content td{
+    padding:1rem 0.5rem;
+    border-bottom: 1px solid rgb(99, 99, 99);
+    text-align:center;
+}

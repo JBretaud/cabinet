@@ -55,7 +55,9 @@ if($path[0]!="ordonnance"):?>
                 ?>
                 <a href='/cabinet/patient/rdv/new?idPatient=<?=$idPatient?>' class ="navbar-item">PRENDRE RDV</a>
             <?php endif; ?>
-            <a href="/cabinet/calendar/month" class ="navbar-item"><?= (isset($_SESSION['type'])&&$_SESSION['type']===1) ?  "MON CALENDRIER" : ($_SESSION['type']===2) ?  "MON AGENDA" :  "CALENDRIER" ;?></a>
+            <?php if($_SESSION['type']!==4): ?>
+            <a href="/cabinet/calendar/month" class ="navbar-item"><?= (isset($_SESSION['type']) && $_SESSION['type'] === 1) ? "MON CALENDRIER" : ($_SESSION['type'] === 2) ?  "MON AGENDA" :  "CALENDRIER" ;?></a>
+            <?php endif; ?>
         <?php endif; ?>
         
             </div>
@@ -150,6 +152,12 @@ if($path[0]!="ordonnance"):?>
                 <div class="d-flex flex-row justify-content-center w-100  pop-up">
                     <div class="toast alert alert-danger h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
                         Création d'ordonnance annulée.
+                    </div>
+                </div>
+            <?php elseif($_GET['alert']==="RdvPris"):?>
+                <div class="d-flex flex-row justify-content-center w-100  pop-up">
+                    <div class="toast alert alert-danger h-auto" data-delay="2000" role="alert" aria-live="assertive" aria-atomic="true">
+                        Le rendez-vous demandé n'est pas disponible.
                     </div>
                 </div>
                 <?php endif;?>
